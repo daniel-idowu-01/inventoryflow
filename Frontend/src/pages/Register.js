@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UploadImage from "../components/UploadImage";
+import axios from 'axios';
 
 function Register() {
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -12,32 +15,14 @@ function Register() {
     imageUrl: "",
   });
 
-  const navigate = useNavigate();
 
-  // Handling Input change for registration form.
+  // function to update user input
   const handleInputChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // Register User
-  const registerUser = () => {
-    fetch("http://localhost:4000/api/register", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(form),
-    })
-      .then((result) => {
-        alert("Successfully Registered, Now Login with your details");
-        navigate('/login')
-        
-      })
-      .catch((err) => console.log(err));
-  };
-  // ------------------
-
-  // Uploading image to cloudinary
+  
+  // function to upload image to cloudinary
   const uploadImage = async (image) => {
     const data = new FormData();
     data.append("file", image);
@@ -47,17 +32,31 @@ function Register() {
       method: "POST",
       body: data,
     })
-      .then((res) => res.json())
-      .then((data) => {
-        setForm({ ...form, imageUrl: data.url });
-        alert("Image Successfully Uploaded");
-      })
-      .catch((error) => console.log(error));
+    .then((res) => res.json())
+    .then((data) => {
+      setForm({ ...form, imageUrl: data.url });
+      alert("Image Successfully Uploaded");
+    })
+    .catch((error) => console.log(error));
   };
 
 
+  // function to register user
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    axios.post("http://localhost:4000/api/register", form, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+      })
+      .then((response) => {
+        alert("Successfully Registered, Now Login with your details");
+        navigate('/login');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   return (
@@ -169,7 +168,6 @@ function Register() {
               <button
                 type="submit"
                 className="group relative flex w-full justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                onClick={registerUser}
               >
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                   {/* <LockClosedIcon

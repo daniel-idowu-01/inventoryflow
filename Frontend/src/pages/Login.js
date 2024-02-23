@@ -2,67 +2,48 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../AuthContext";
+import axios from 'axios';
 
 function Login() {
+  const authContext = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
 
-  const authContext = useContext(AuthContext);
-  const navigate = useNavigate();
 
-
+  // function to update user input
   const handleInputChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const authCheck = () => {
-    setTimeout(() => {
-      fetch("http://localhost:4000/api/login")
-        .then((response) => response.json())
-        .then((data) => {
-          alert("Successfully Login");
-          localStorage.setItem("user", JSON.stringify(data));
-          authContext.signin(data._id, () => {
-            navigate("/");
-          });
-        })
-        .catch((err) => {
-          alert("Wrong credentials, Try again")
-          console.log(err);
-        });
-    }, 3000);
-  };
-
-  const loginUser = (e) => {
-    // Cannot send empty data
-    if (form.email === "" || form.password === "") {
-      alert("To login user, enter details to proceed...");
-    } else {
-      fetch("http://localhost:4000/api/login", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(form),
-      })
-        .then((result) => {
-          console.log("User login", result);
-        })
-        .catch((error) => {
-          console.log("Something went wrong ", error);
-        });
-    }
-    authCheck();
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
   };
 
 
+  // function to send user info to backend
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    axios.post("http://localhost:4000/api/login", form, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then((response) => {
+        localStorage.setItem('user', JSON.stringify(response.data))
+        authContext.signin(response.data._id, () => {
+          navigate('/')
+        })
+      })
+      .catch((error) => {
+        console.log("Something went wrong ", error);
+      });
+
   };
 
-  
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 h-screen  items-center place-items-center">
@@ -154,7 +135,6 @@ function Login() {
               <button
                 type="submit"
                 className="group relative flex w-full justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                onClick={loginUser}
               >
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                   {/* <LockClosedIcon

@@ -31,7 +31,6 @@ app.use("/api/sales", salesRoute);
 let userAuthCheck;
 app.post("/api/login", async (req, res) => {
   console.log(req.body);
-  // res.send("hi");
   try {
     const user = await User.findOne({
       email: req.body.email,
@@ -42,7 +41,7 @@ app.post("/api/login", async (req, res) => {
       res.send(user);
       userAuthCheck = user;
     } else {
-      res.status(401).send("Invalid Credentials");
+      res.status(400).send("Invalid Credentials");
       userAuthCheck = null;
     }
   } catch (error) {
@@ -50,12 +49,6 @@ app.post("/api/login", async (req, res) => {
     res.send(error);
   }
 });
-
-// Getting User Details of login user
-app.get("/api/login", (req, res) => {
-  res.send(userAuthCheck);
-});
-// ------------------------------------
 
 // Registration API
 app.post("/api/register", (req, res) => {
@@ -74,13 +67,13 @@ app.post("/api/register", (req, res) => {
       res.status(200).send(result);
       alert("Signup Successfull");
     })
-    .catch((err) => console.log("Signup: ", err));
+    .catch((err) => console.log("Signup Error: ", err));
   console.log("request: ", req.body);
 });
 
 
-app.get("/testget", async (req,res)=>{
-  const result = await Product.findOne({ _id: '6429979b2e5434138eda1564'})
+app.get("/testget", async (req, res) => {
+  const result = await Product.findOne({ _id: '6429979b2e5434138eda1564' })
   res.json(result)
 
 })
