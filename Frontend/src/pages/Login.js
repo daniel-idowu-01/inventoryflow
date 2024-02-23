@@ -2,12 +2,13 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../AuthContext";
 import axios from 'axios';
-import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
+import { Button, Checkbox, Label, TextInput, Spinner  } from 'flowbite-react';
 
 function Login() {
   const authContext = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const [isLoading, setIsLoading] = useState(false)
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -22,11 +23,13 @@ function Login() {
     });
   };
 
+  /* <Spinner aria-label="Default status example" /> */
 
   // function to send user info to backend
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    setIsLoading(true)
     axios.post("http://localhost:4000/api/login", form, {
       headers: {
         "Content-Type": "application/json"
@@ -37,9 +40,11 @@ function Login() {
         authContext.signin(response.data._id, () => {
           navigate('/')
         })
+        setIsLoading(false)
       })
       .catch((error) => {
         console.log("Something went wrong ", error);
+        setIsLoading(false)
       });
 
   };
@@ -88,6 +93,7 @@ function Login() {
               <TextInput
                 id="email"
                 type="email"
+                name="email"
                 placeholder="johndoe@gmail.com"
                 onChange={handleInputChange}
                 required
@@ -101,6 +107,7 @@ function Login() {
               <TextInput
                 id="password"
                 type="password"
+                name="password"
                 onChange={handleInputChange}
                 required
               />
@@ -126,14 +133,14 @@ function Login() {
               type="submit"
               className="bg-[#407BFF]"
             >
-              Login
+              {isLoading ? <Spinner aria-label="Default status example" />: 'Login'}
             </Button>
           </form>
 
           <p className="text-sm">
             Don't have an account?
             <span className="text-[#407BFF] underline ml-1 hover:text-purple-600">
-              <Link>Create an account</Link>
+              <Link to='/register'>Create an account</Link>
             </span>
           </p>
         </article>
