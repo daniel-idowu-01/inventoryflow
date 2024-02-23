@@ -2,12 +2,13 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UploadImage from "../components/UploadImage";
 import axios from 'axios';
-import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
+import { Button, Checkbox, Label, TextInput, Spinner } from 'flowbite-react';
 
 function Register() {
   const navigate = useNavigate();
 
-  const [imageSuccess, setImageSuccess] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [imageLoading, setImageLoading] = useState(false)
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -33,6 +34,7 @@ function Register() {
     data.append("file", image);
     data.append("upload_preset", "inventoryapp");
 
+    setImageLoading(true)
     await fetch("https://api.cloudinary.com/v1_1/ddhayhptm/image/upload", {
       method: "POST",
       body: data,
@@ -40,9 +42,12 @@ function Register() {
       .then((res) => res.json())
       .then((data) => {
         setForm({ ...form, imageUrl: data.url });
-        setImageSuccess("Image Successfully Uploaded");
+        setImageLoading(false)
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error)
+        setImageLoading(false)
+      });
   };
 
 
@@ -50,13 +55,14 @@ function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    setIsLoading(true)
     axios.post("http://localhost:4000/api/register", form, {
       headers: {
         "Content-Type": "application/json"
       }
     })
       .then((response) => {
-        alert("Successfully Registered, Now Login with your details");
+        setIsLoading(false)
         navigate('/login');
       })
       .catch((error) => {
@@ -167,7 +173,9 @@ function Register() {
             {/* upload image component */}
             <div>
               <UploadImage uploadImage={uploadImage} />
-              <p className="text-green-500 text-sm">{imageSuccess === '' ? '' : imageSuccess}</p>
+              <p className="text-green-500 text-sm">
+                {imageLoading ? <Spinner aria-label="Default status example" /> : ''}
+              </p>
             </div>
 
 
@@ -182,7 +190,7 @@ function Register() {
               type="submit"
               className="bg-[#407BFF]"
             >
-              Create Account
+              {isLoading ? <Spinner aria-label="Default status example" /> : 'Create Account'}
             </Button>
           </form>
 
