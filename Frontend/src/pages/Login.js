@@ -49,8 +49,12 @@ function Login() {
   return (
     <main>
       <div className="grid grid-cols-1 sm:grid-cols-2 h-screen  items-center place-items-center">
-        <article className="flex justify-center">
-          <img src={require("../assets/home.png")} alt="" />
+        <article className="relative flex justify-center">
+          <img
+            className="animate-img w-[80%]"
+            src={require("../assets/home.png")}
+            alt=""
+          />
         </article>
 
         <article className="w-full max-w-md space-y-8 p-10 rounded-lg">
@@ -122,9 +126,16 @@ function Login() {
               type="submit"
               className="bg-[#407BFF]"
             >
-              Submit
+              Login
             </Button>
           </form>
+
+          <p className="text-sm">
+            Don't have an account?
+            <span className="text-[#407BFF] underline ml-1 hover:text-purple-600">
+              <Link>Create an account</Link>
+            </span>
+          </p>
         </article>
       </div>
     </main>
