@@ -183,7 +183,7 @@ function Dashboard() {
   return (
     <>
       <div
-        className="grid grid-cols-1 col-span-12 lg:col-span-10 gap-6 md:grid-cols-3 lg:grid-cols-4  p-4"
+        className="grid grid-cols-1 col-span-12 lg:col-span-10 gap-6 md:grid-cols-3 lg:grid-cols-4 p-4"
       >
         {dashboardStats.map(stat => (
           <StatsComp key={stat.id} {...stat} />
