@@ -6,7 +6,7 @@ import SideMenu from "./SideMenu";
 function Layout() {
   return (
     <>
-      <div className="md:h-16">
+      <div className="md:h-20">
         <Header />
       </div>
       <div className="grid grid-cols-12 bg-gray-100 items-baseline">

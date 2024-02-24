@@ -23,8 +23,8 @@ export default function Header() {
   const localStorageData = JSON.parse(localStorage.getItem("user"));
   return (
     <>
-      <div className="min-h-full">
-        <Disclosure as="nav" className="bg-gray-800">
+      <div className="min-h-full border">
+        <Disclosure as="nav" className='bg-gray-800 lg:bg-white relative lg:top-2'>
           {({ open }) => (
             <>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -33,11 +33,11 @@ export default function Header() {
                     <div className="flex-shrink-0">
                       <div className="flex justify-center items-center gap-2">
                         <img
-                          className="h-8 w-8"
+                          className="h-8 w-8 rotate-180"
                           src={require("../assets/logo.png")}
                           alt="Inventory Management System"
                         />
-                        <span className="font-bold text-white italic">
+                        <span className="font-bold italic text-white lg:text-black">
                           Inventory Management
                         </span>
                       </div>
@@ -56,7 +56,7 @@ export default function Header() {
                       {/* Profile dropdown */}
                       <Menu as="div" className="relative ml-3">
                         <div>
-                          <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                          <Menu.Button className="flex max-w-xs items-center rounded-full border border-gray-600 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                             <span className="sr-only">Open user menu</span>
                             <img
                               className="h-8 w-8 rounded-full"
@@ -99,7 +99,7 @@ export default function Header() {
                   </div>
                   <div className="-mr-2 flex md:hidden">
                     {/* Mobile menu button */}
-                    <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-1 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open main menu</span>
                       {open ? (
                         <XMarkIcon
