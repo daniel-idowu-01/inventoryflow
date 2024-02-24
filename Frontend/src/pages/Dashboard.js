@@ -1,7 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import Chart from "react-apexcharts";
+import StatsComp from "../components/StatsComp";
 import AuthContext from "../AuthContext";
 import { Doughnut } from "react-chartjs-2";
+import { FiUserPlus } from "react-icons/fi";
+import { MdOutlineInventory2 } from "react-icons/md";
+import { ImStatsBars } from "react-icons/im";
+import { FaStoreAlt } from "react-icons/fa";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -135,78 +140,53 @@ function Dashboard() {
   // data to display as dashboard stats
   const dashboardStats = [
     {
+      id: 1,
       title: 'Sales',
       amount: '$240.94',
       info: `$${saleAmount}`,
+      icon: <MdOutlineInventory2 />,
       percent: '67.81%',
-      bgColor: 'bg-green-100',
-      textColor: 'text-green-600'
+      bgColor: 'bg-[#344767]',
+      textColor: 'text-green-600',
     },
     {
+      id: 2,
       title: 'Purchase',
       amount: '$404.32',
       info: `$${purchaseAmount}`,
-      percent: '67.81%',
-      bgColor: 'bg-red-100',
+      icon: <ImStatsBars />,
+      percent: '5.1%',
+      bgColor: 'bg-blue-500',
       textColor: 'text-red-600'
     },
     {
+      id: 3,
       title: 'Total Stores',
       amount: '',
       info: stores.length,
-      percent: '67.81%',
-      bgColor: 'bg-red-100',
+      icon: <FaStoreAlt />,
+      percent: '7.3%',
+      bgColor: 'bg-green-500',
       textColor: 'text-red-600'
     },
     {
+      id: 4,
       title: 'Total Products',
       amount: '',
       info: products.length,
-      percent: '67.81%',
-      bgColor: 'bg-red-100',
+      icon: <FiUserPlus />,
+      percent: '37.9%',
+      bgColor: 'bg-pink-500',
       textColor: 'text-red-600'
     },
   ]
   return (
     <>
-      <div className="grid grid-cols-1 col-span-12 lg:col-span-10 gap-6 md:grid-cols-3 lg:grid-cols-4  p-4 ">
+      <div
+        className="grid grid-cols-1 col-span-12 lg:col-span-10 gap-6 md:grid-cols-3 lg:grid-cols-4  p-4"
+      >
         {dashboardStats.map(stat => (
-          <article className="flex flex-col gap-4 rounded-lg border  border-gray-100 bg-white p-6  ">
-            <div className={`${stat.bgColor} ${stat.textColor} inline-flex gap-2 self-end rounded p-1`}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-                />
-              </svg>
-
-              <span className="text-xs font-medium"> {stat.percent} </span>
-            </div>
-
-            <div>
-              <strong className="block text-sm font-medium text-gray-500">
-                {stat.title}
-              </strong>
-
-              <p>
-                <span className="text-2xl font-medium text-gray-900">
-                  {stat.info}
-                </span>
-
-                <span className="text-xs text-gray-500">
-                  {stat.amount ? `from ${stat.amount}` : ''}
-                </span>
-              </p>
-            </div>
-          </article>
+          <StatsComp key={stat.id} {...stat} />
         ))}
 
 
