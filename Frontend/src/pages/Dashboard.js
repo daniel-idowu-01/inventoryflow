@@ -132,150 +132,85 @@ function Dashboard() {
       .catch((err) => console.log(err));
   };
 
+  // data to display as dashboard stats
+  const dashboardStats = [
+    {
+      title: 'Sales',
+      amount: '$240.94',
+      info: `$${saleAmount}`,
+      percent: '67.81%',
+      bgColor: 'bg-green-100',
+      textColor: 'text-green-600'
+    },
+    {
+      title: 'Purchase',
+      amount: '$404.32',
+      info: `$${purchaseAmount}`,
+      percent: '67.81%',
+      bgColor: 'bg-red-100',
+      textColor: 'text-red-600'
+    },
+    {
+      title: 'Total Stores',
+      amount: '',
+      info: stores.length,
+      percent: '67.81%',
+      bgColor: 'bg-red-100',
+      textColor: 'text-red-600'
+    },
+    {
+      title: 'Total Products',
+      amount: '',
+      info: products.length,
+      percent: '67.81%',
+      bgColor: 'bg-red-100',
+      textColor: 'text-red-600'
+    },
+  ]
   return (
     <>
       <div className="grid grid-cols-1 col-span-12 lg:col-span-10 gap-6 md:grid-cols-3 lg:grid-cols-4  p-4 ">
-        <article className="flex flex-col gap-4 rounded-lg border  border-gray-100 bg-white p-6  ">
-          <div className="inline-flex gap-2 self-end rounded bg-green-100 p-1 text-green-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-              />
-            </svg>
+        {dashboardStats.map(stat => (
+          <article className="flex flex-col gap-4 rounded-lg border  border-gray-100 bg-white p-6  ">
+            <div className={`${stat.bgColor} ${stat.textColor} inline-flex gap-2 self-end rounded p-1`}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                />
+              </svg>
 
-            <span className="text-xs font-medium"> 67.81% </span>
-          </div>
+              <span className="text-xs font-medium"> {stat.percent} </span>
+            </div>
 
-          <div>
-            <strong className="block text-sm font-medium text-gray-500">
-              Sales
-            </strong>
+            <div>
+              <strong className="block text-sm font-medium text-gray-500">
+                {stat.title}
+              </strong>
 
-            <p>
-              <span className="text-2xl font-medium text-gray-900">
-                ${saleAmount}
-              </span>
+              <p>
+                <span className="text-2xl font-medium text-gray-900">
+                  {stat.info}
+                </span>
 
-              <span className="text-xs text-gray-500"> from $240.94 </span>
-            </p>
-          </div>
-        </article>
+                <span className="text-xs text-gray-500">
+                  {stat.amount ? `from ${stat.amount}` : ''}
+                </span>
+              </p>
+            </div>
+          </article>
+        ))}
 
-        <article className="flex flex-col  gap-4 rounded-lg border border-gray-100 bg-white p-6 ">
-          <div className="inline-flex gap-2 self-end rounded bg-red-100 p-1 text-red-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"
-              />
-            </svg>
 
-            <span className="text-xs font-medium"> 67.81% </span>
-          </div>
-
-          <div>
-            <strong className="block text-sm font-medium text-gray-500">
-              Purchase
-            </strong>
-
-            <p>
-              <span className="text-2xl font-medium text-gray-900">
-                {" "}
-                ${purchaseAmount}{" "}
-              </span>
-
-              <span className="text-xs text-gray-500"> from $404.32 </span>
-            </p>
-          </div>
-        </article>
-        <article className="flex flex-col   gap-4 rounded-lg border border-gray-100 bg-white p-6 ">
-          <div className="inline-flex gap-2 self-end rounded bg-red-100 p-1 text-red-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"
-              />
-            </svg>
-
-            <span className="text-xs font-medium"> 67.81% </span>
-          </div>
-
-          <div>
-            <strong className="block text-sm font-medium text-gray-500">
-              Total Products
-            </strong>
-
-            <p>
-              <span className="text-2xl font-medium text-gray-900">
-                {" "}
-                {products.length}{" "}
-              </span>
-
-              {/* <span className="text-xs text-gray-500"> from $404.32 </span> */}
-            </p>
-          </div>
-        </article>
-        <article className="flex flex-col   gap-4 rounded-lg border border-gray-100 bg-white p-6 ">
-          <div className="inline-flex gap-2 self-end rounded bg-red-100 p-1 text-red-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"
-              />
-            </svg>
-
-            <span className="text-xs font-medium"> 67.81% </span>
-          </div>
-
-          <div>
-            <strong className="block text-sm font-medium text-gray-500">
-              Total Stores
-            </strong>
-
-            <p>
-              <span className="text-2xl font-medium text-gray-900">
-                {" "}
-                {stores.length}{" "}
-              </span>
-
-              {/* <span className="text-xs text-gray-500"> from 0 </span> */}
-            </p>
-          </div>
-        </article>
-        <div className="flex justify-around bg-white rounded-lg py-8 col-span-full justify-center">
+        <div className="flex justify-around bg-white rounded-lg py-8 col-span-full">
           <div>
             <Chart
               options={chart.options}

@@ -190,7 +190,11 @@ function Register() {
               type="submit"
               className="bg-[#407BFF]"
             >
-              {isLoading ? <Spinner aria-label="Default status example" /> : 'Create Account'}
+              {isLoading
+                ? 
+                <Spinner aria-label="Default status example" />
+                :
+                'Create Account'}
             </Button>
           </form>
 
