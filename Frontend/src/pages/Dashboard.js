@@ -183,24 +183,28 @@ function Dashboard() {
   return (
     <>
       <div
-        className="grid grid-cols-1 col-span-12 lg:col-span-10 gap-6 md:grid-cols-3 lg:grid-cols-4 p-4"
+        className="grid grid-cols-1 col-span-12 lg:col-span-10 gap-6 md:grid-cols-3 lg:grid-cols-4 md:place-items-center p-4"
       >
         {dashboardStats.map(stat => (
           <StatsComp key={stat.id} {...stat} />
         ))}
 
 
-        <div className="flex justify-around bg-white rounded-lg py-8 col-span-full">
-          <div>
+        <div className="flex flex-col md:flex-row gap-3 justify-between col-span-full">
+          <div className="bg-white p-8 shadow-md rounded-xl">
             <Chart
               options={chart.options}
               series={chart.series}
               type="bar"
-              width="500"
+              className='w-full md:w-[600px]'
+            /* width="600" */
             />
           </div>
-          <div>
-            <Doughnut data={data} />
+          <div className="bg-white p-8 shadow-md rounded-xl px-auto">
+            <Doughnut
+              data={data}
+              className="mx-auto"
+            />
           </div>
         </div>
       </div>
