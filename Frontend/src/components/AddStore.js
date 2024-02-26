@@ -33,7 +33,6 @@ export default function AddStore() {
       body: JSON.stringify(form),
     })
       .then((result) => {
-        alert("STORE ADDED");
         setOpen(false);
       })
       .catch((err) => console.log(err));
