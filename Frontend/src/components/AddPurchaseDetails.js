@@ -35,7 +35,6 @@ export default function AddPurchaseDetails({
       body: JSON.stringify(purchase),
     })
       .then((result) => {
-        alert("Purchase ADDED");
         handlePageUpdate();
         addSaleModalSetting();
       })

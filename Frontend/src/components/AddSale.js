@@ -36,7 +36,6 @@ export default function AddSale({
       body: JSON.stringify(sale),
     })
       .then((result) => {
-        alert("Sale ADDED");
         handlePageUpdate();
         addSaleModalSetting();
       })

@@ -38,7 +38,7 @@ export default function Header() {
                           alt="Inventory Management System"
                         />
                         <span className="font-bold italic text-white lg:text-black">
-                          Inventory Management
+                          InventoryFlow
                         </span>
                       </div>
                     </div>

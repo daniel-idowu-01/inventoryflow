@@ -38,7 +38,7 @@ function Store() {
           </button>
         </div>
         {showModal && <AddStore />}
-        {stores.map((element, index) => {
+        {stores.map((element) => {
           return (
             <div
               className="bg-white w-50 h-fit flex flex-col gap-4 p-4 "

@@ -65,7 +65,7 @@ function Login() {
         <article className="w-full max-w-md space-y-8 p-10 rounded-lg">
           <div>
             <img
-              className="mx-auto h-12 w-auto"
+              className="mx-auto h-12 w-auto rotate-180"
               src={require("../assets/logo.png")}
               alt="Your Company"
             />

@@ -30,7 +30,6 @@ export default function UpdateProduct({
       body: JSON.stringify(product),
     })
       .then((result) => {
-        alert("Product Updated");
         setOpen(false);
       })
       .catch((err) => console.log(err));
