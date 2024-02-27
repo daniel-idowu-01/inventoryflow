@@ -11,35 +11,6 @@ function Sales() {
 
   const authContext = useContext(AuthContext);
 
-  // Fetching Data of All Sales
-  const fetchSalesData = () => {
-    fetch(`https://inventoryflow.onrender.com/api/sales/get/${authContext.user}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setAllSalesData(data);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  // Fetching Data of All Products
-  const fetchProductsData = () => {
-    fetch(`https://inventoryflow.onrender.com/api/product/get/${authContext.user}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setAllProducts(data);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  // Fetching Data of All Stores
-  const fetchStoresData = () => {
-    fetch(`https://inventoryflow.onrender.com/api/store/get/${authContext.user}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setAllStores(data);
-      });
-  };
-
   // Modal for Sale Add
   const addSaleModalSetting = () => {
     setShowSaleModal(!showSaleModal);
@@ -51,6 +22,37 @@ function Sales() {
   };
 
   useEffect(() => {
+    // Fetching Data of All Sales
+    const fetchSalesData = () => {
+      fetch(`https://inventoryflow.onrender.com/api/sales/get/${authContext.user}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setAllSalesData(data);
+        })
+        .catch((err) => console.log(err));
+    };
+
+
+    // Fetching Data of All Products
+    const fetchProductsData = () => {
+      fetch(`https://inventoryflow.onrender.com/api/product/get/${authContext.user}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setAllProducts(data);
+        })
+        .catch((err) => console.log(err));
+    };
+
+
+    // Fetching Data of All Stores
+    const fetchStoresData = () => {
+      fetch(`https://inventoryflow.onrender.com/api/store/get/${authContext.user}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setAllStores(data);
+        });
+    };
+    
     fetchSalesData();
     fetchProductsData();
     fetchStoresData();

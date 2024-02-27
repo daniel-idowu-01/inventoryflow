@@ -10,25 +10,9 @@ function PurchaseDetails() {
 
   const authContext = useContext(AuthContext);
 
-  // Fetching Data of All Purchase items
-  const fetchPurchaseData = () => {
-    fetch(`https://inventoryflow.onrender.com/api/purchase/get/${authContext.user}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setAllPurchaseData(data);
-      })
-      .catch((err) => console.log(err));
-  };
+  
 
-  // Fetching Data of All Products
-  const fetchProductsData = () => {
-    fetch(`https://inventoryflow.onrender.com/api/product/get/${authContext.user}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setAllProducts(data);
-      })
-      .catch((err) => console.log(err));
-  };
+  
 
   // Modal for Sale Add
   const addSaleModalSetting = () => {
@@ -42,6 +26,27 @@ function PurchaseDetails() {
   };
 
   useEffect(() => {
+    // Fetching Data of All Purchase items
+    const fetchPurchaseData = () => {
+      fetch(`https://inventoryflow.onrender.com/api/purchase/get/${authContext.user}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setAllPurchaseData(data);
+        })
+        .catch((err) => console.log(err));
+    };
+
+
+    // Fetching Data of All Products
+    const fetchProductsData = () => {
+      fetch(`https://inventoryflow.onrender.com/api/product/get/${authContext.user}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setAllProducts(data);
+        })
+        .catch((err) => console.log(err));
+    };
+    
     fetchPurchaseData();
     fetchProductsData();
   }, [updatePage]);

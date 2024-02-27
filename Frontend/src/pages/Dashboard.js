@@ -88,47 +88,6 @@ function Dashboard() {
 
   const authContext = useContext(AuthContext);
 
-  // Fetching total sales amount
-  const fetchTotalSaleAmount = () => {
-    fetch(
-      `https://inventoryflow.onrender.com/api/sales/get/${authContext.user}/totalsaleamount`
-    )
-      .then((response) => response.json())
-      .then((datas) => setSaleAmount(datas.totalSaleAmount));
-  };
-
-  // Fetching total purchase amount
-  const fetchTotalPurchaseAmount = () => {
-    fetch(
-      `https://inventoryflow.onrender.com/api/purchase/get/${authContext.user}/totalpurchaseamount`
-    )
-      .then((response) => response.json())
-      .then((datas) => setPurchaseAmount(datas.totalPurchaseAmount));
-  };
-
-  // Fetching all stores data
-  const fetchStoresData = () => {
-    fetch(`https://inventoryflow.onrender.com/api/store/get/${authContext.user}`)
-      .then((response) => response.json())
-      .then((datas) => setStores(datas));
-  };
-
-  // Fetching Data of All Products
-  const fetchProductsData = () => {
-    fetch(`https://inventoryflow.onrender.com/api/product/get/${authContext.user}`)
-      .then((response) => response.json())
-      .then((datas) => setProducts(datas))
-      .catch((err) => console.log(err));
-  };
-
-  // Fetching Monthly Sales
-  const fetchMonthlySalesData = () => {
-    fetch(`https://inventoryflow.onrender.com/api/sales/getmonthly`)
-      .then((response) => response.json())
-      .then((datas) => updateChartData(datas.salesAmount))
-      .catch((err) => console.log(err));
-  };
-
   // data to display as dashboard stats
   const dashboardStats = [
     {
@@ -174,6 +133,51 @@ function Dashboard() {
   ]
 
   useEffect(() => {
+    // Fetching total sales amount
+    const fetchTotalSaleAmount = () => {
+      fetch(
+        `https://inventoryflow.onrender.com/api/sales/get/${authContext.user}/totalsaleamount`
+      )
+        .then((response) => response.json())
+        .then((datas) => setSaleAmount(datas.totalSaleAmount));
+    };
+
+    
+    // Fetching total purchase amount
+    const fetchTotalPurchaseAmount = () => {
+      fetch(
+        `https://inventoryflow.onrender.com/api/purchase/get/${authContext.user}/totalpurchaseamount`
+      )
+        .then((response) => response.json())
+        .then((datas) => setPurchaseAmount(datas.totalPurchaseAmount));
+    };
+
+
+    // Fetching all stores data
+    const fetchStoresData = () => {
+      fetch(`https://inventoryflow.onrender.com/api/store/get/${authContext.user}`)
+        .then((response) => response.json())
+        .then((datas) => setStores(datas));
+    };
+
+
+    // Fetching Data of All Products
+    const fetchProductsData = () => {
+      fetch(`https://inventoryflow.onrender.com/api/product/get/${authContext.user}`)
+        .then((response) => response.json())
+        .then((datas) => setProducts(datas))
+        .catch((err) => console.log(err));
+    };
+
+
+    // Fetching Monthly Sales
+    const fetchMonthlySalesData = () => {
+      fetch(`https://inventoryflow.onrender.com/api/sales/getmonthly`)
+        .then((response) => response.json())
+        .then((datas) => updateChartData(datas.salesAmount))
+        .catch((err) => console.log(err));
+    };
+
     fetchTotalSaleAmount();
     fetchTotalPurchaseAmount();
     fetchStoresData();
