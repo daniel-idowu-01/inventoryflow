@@ -56,7 +56,7 @@ function Register() {
     e.preventDefault();
 
     setIsLoading(true)
-    axios.post("http://localhost:4000/api/register", form, {
+    axios.post("https://inventoryflow.onrender.com/api/register", form, {
       headers: {
         "Content-Type": "application/json"
       }
@@ -191,7 +191,7 @@ function Register() {
               className="bg-[#407BFF]"
             >
               {isLoading
-                ? 
+                ?
                 <Spinner aria-label="Default status example" />
                 :
                 'Create Account'}

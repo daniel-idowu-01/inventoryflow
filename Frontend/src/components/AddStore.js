@@ -25,7 +25,7 @@ export default function AddStore() {
   const cancelButtonRef = useRef(null);
 
   const addProduct = () => {
-    fetch("http://localhost:4000/api/store/add", {
+    fetch("https://inventoryflow.onrender.com/api/store/add", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -190,12 +190,12 @@ export default function AddStore() {
                         </div>
                         <div className="flex items-center space-x-4">
                           <div>
-                          <div className="flex">
-                            <UploadImage uploadImage={uploadImage} />
-                            <p className="text-green-500 text-sm inline-block">
-                              {imageLoading ? <Spinner aria-label="Default status example" /> : ''}
-                            </p>
-                          </div>
+                            <div className="flex">
+                              <UploadImage uploadImage={uploadImage} />
+                              <p className="text-green-500 text-sm inline-block">
+                                {imageLoading ? <Spinner aria-label="Default status example" /> : ''}
+                              </p>
+                            </div>
                             {/* <label
                               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                               for="small_size"

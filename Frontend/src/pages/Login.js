@@ -2,13 +2,15 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../AuthContext";
 import axios from 'axios';
-import { Button, Checkbox, Label, TextInput, Spinner  } from 'flowbite-react';
+import { Button, Checkbox, Label, TextInput, Spinner } from 'flowbite-react';
 
 function Login() {
   const authContext = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -30,7 +32,7 @@ function Login() {
     e.preventDefault();
 
     setIsLoading(true)
-    axios.post("http://localhost:4000/api/login", form, {
+    axios.post("https://inventoryflow.onrender.com/api/login", form, {
       headers: {
         "Content-Type": "application/json"
       }
@@ -44,12 +46,12 @@ function Login() {
       })
       .catch((error) => {
         console.log("Something went wrong ", error);
+        setError(true)
+        setErrorMessage('Email or Password Not Correct')
         setIsLoading(false)
       });
 
   };
-
-  /* color: 407BFF */
 
   return (
     <main>
@@ -113,6 +115,8 @@ function Login() {
               />
             </article>
 
+            {error && <p className="text-xs text-red-500 italic">{errorMessage}</p>}
+
             <article className="flex justify-between">
               <div className="flex items-center gap-2">
                 <Checkbox id="remember" />
@@ -133,7 +137,7 @@ function Login() {
               type="submit"
               className="bg-[#407BFF]"
             >
-              {isLoading ? <Spinner aria-label="Default status example" />: 'Login'}
+              {isLoading ? <Spinner aria-label="Default status example" /> : 'Login'}
             </Button>
           </form>
 

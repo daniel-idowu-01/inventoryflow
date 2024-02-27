@@ -1,15 +1,16 @@
+import "./index.css";
 import React from "react";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
-import "./index.css";
+import Hero from "./pages/Hero";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Layout from "./components/Layout";
 import Inventory from "./pages/Inventory";
 import NoPageFound from "./pages/NoPageFound";
 import AuthContext from "./AuthContext";
 import ProtectedWrapper from "./ProtectedWrapper";
-import { useEffect, useState } from "react";
 import Store from "./pages/Store";
 import Sales from "./pages/Sales";
 import PurchaseDetails from "./pages/PurchaseDetails";
@@ -63,6 +64,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/hero" element={<Hero />} />
           <Route
             path="/"
             element={
