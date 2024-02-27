@@ -45,7 +45,7 @@ function PurchaseDetails() {
     fetchPurchaseData();
     fetchProductsData();
   }, [updatePage]);
-  
+
   return (
     <div className="col-span-12 lg:col-span-10  flex justify-center">
       <div className=" flex flex-col gap-5 w-11/12">
@@ -102,7 +102,7 @@ function PurchaseDetails() {
                       {element.QuantityPurchased}
                     </td>
                     <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      {new Date(element.PurchaseDate).toLocaleDateString() ==
+                      {new Date(element.PurchaseDate).toLocaleDateString() ===
                         new Date().toLocaleDateString()
                         ? "Today"
                         : element.PurchaseDate}
