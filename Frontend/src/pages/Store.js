@@ -8,10 +8,6 @@ function Store() {
 
   const authContext = useContext(AuthContext);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   // Fetching all stores data
   const fetchData = () => {
     fetch(`https://inventoryflow.onrender.com/api/store/get/${authContext.user}`)
@@ -24,6 +20,10 @@ function Store() {
   const modalSetting = () => {
     setShowModal(!showModal);
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div className="col-span-12 lg:col-span-10 flex justify-center ">

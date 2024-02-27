@@ -88,14 +88,6 @@ function Dashboard() {
 
   const authContext = useContext(AuthContext);
 
-  useEffect(() => {
-    fetchTotalSaleAmount();
-    fetchTotalPurchaseAmount();
-    fetchStoresData();
-    fetchProductsData();
-    fetchMonthlySalesData();
-  }, []);
-
   // Fetching total sales amount
   const fetchTotalSaleAmount = () => {
     fetch(
@@ -180,6 +172,15 @@ function Dashboard() {
       textColor: 'text-red-600'
     },
   ]
+
+  useEffect(() => {
+    fetchTotalSaleAmount();
+    fetchTotalPurchaseAmount();
+    fetchStoresData();
+    fetchProductsData();
+    fetchMonthlySalesData();
+  }, []);
+  
   return (
     <>
       <div

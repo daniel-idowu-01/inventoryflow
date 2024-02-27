@@ -10,11 +10,6 @@ function PurchaseDetails() {
 
   const authContext = useContext(AuthContext);
 
-  useEffect(() => {
-    fetchPurchaseData();
-    fetchProductsData();
-  }, [updatePage]);
-
   // Fetching Data of All Purchase items
   const fetchPurchaseData = () => {
     fetch(`https://inventoryflow.onrender.com/api/purchase/get/${authContext.user}`)
@@ -46,6 +41,11 @@ function PurchaseDetails() {
     setUpdatePage(!updatePage);
   };
 
+  useEffect(() => {
+    fetchPurchaseData();
+    fetchProductsData();
+  }, [updatePage]);
+  
   return (
     <div className="col-span-12 lg:col-span-10  flex justify-center">
       <div className=" flex flex-col gap-5 w-11/12">

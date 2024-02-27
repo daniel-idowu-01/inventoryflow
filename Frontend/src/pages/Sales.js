@@ -11,12 +11,6 @@ function Sales() {
 
   const authContext = useContext(AuthContext);
 
-  useEffect(() => {
-    fetchSalesData();
-    fetchProductsData();
-    fetchStoresData();
-  }, [updatePage]);
-
   // Fetching Data of All Sales
   const fetchSalesData = () => {
     fetch(`https://inventoryflow.onrender.com/api/sales/get/${authContext.user}`)
@@ -56,6 +50,12 @@ function Sales() {
     setUpdatePage(!updatePage);
   };
 
+  useEffect(() => {
+    fetchSalesData();
+    fetchProductsData();
+    fetchStoresData();
+  }, [updatePage]);
+  
   return (
     <div className="col-span-12 lg:col-span-10  flex justify-center">
       <div className=" flex flex-col gap-5 w-11/12">
