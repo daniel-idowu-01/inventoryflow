@@ -25,8 +25,6 @@ function Login() {
     });
   };
 
-  /* <Spinner aria-label="Default status example" /> */
-
   // function to send user info to backend
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,6 +46,9 @@ function Login() {
         console.log("Something went wrong ", error);
         setError(true)
         setErrorMessage('Email or Password Not Correct')
+        setTimeout(() => {
+          setError(false)
+        }, 2000)
         setIsLoading(false)
       });
 
