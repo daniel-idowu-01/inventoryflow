@@ -39,9 +39,9 @@ function Inventory() {
 
     fetchProductsData();
     fetchSalesData();
-  }, [updatePage]);
+  }, [updatePage, authContext.user]);
 
- 
+
 
   // Fetching Data of Search Products
   const fetchSearchData = () => {

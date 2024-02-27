@@ -10,10 +10,6 @@ function PurchaseDetails() {
 
   const authContext = useContext(AuthContext);
 
-  
-
-  
-
   // Modal for Sale Add
   const addSaleModalSetting = () => {
     setPurchaseModal(!showPurchaseModal);
@@ -46,10 +42,10 @@ function PurchaseDetails() {
         })
         .catch((err) => console.log(err));
     };
-    
+
     fetchPurchaseData();
     fetchProductsData();
-  }, [updatePage]);
+  }, [updatePage, authContext.user]);
 
   return (
     <div className="col-span-12 lg:col-span-10  flex justify-center">

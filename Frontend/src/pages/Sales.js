@@ -56,7 +56,7 @@ function Sales() {
     fetchSalesData();
     fetchProductsData();
     fetchStoresData();
-  }, [updatePage]);
+  }, [updatePage, authContext.user]);
   
   return (
     <div className="col-span-12 lg:col-span-10  flex justify-center">

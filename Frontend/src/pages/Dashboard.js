@@ -142,7 +142,7 @@ function Dashboard() {
         .then((datas) => setSaleAmount(datas.totalSaleAmount));
     };
 
-    
+
     // Fetching total purchase amount
     const fetchTotalPurchaseAmount = () => {
       fetch(
@@ -183,8 +183,8 @@ function Dashboard() {
     fetchStoresData();
     fetchProductsData();
     fetchMonthlySalesData();
-  }, []);
-  
+  }, [authContext.user]);
+
   return (
     <>
       <div
