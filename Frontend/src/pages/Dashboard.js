@@ -202,7 +202,6 @@ function Dashboard() {
               series={chart.series}
               type="bar"
               className='w-full md:w-[600px]'
-            /* width="600" */
             />
           </div>
           <div className="bg-white p-8 shadow-md rounded-xl px-auto">
