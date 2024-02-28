@@ -183,7 +183,7 @@ function Dashboard() {
     fetchStoresData();
     fetchProductsData();
     fetchMonthlySalesData();
-  }, [authContext.user, chart]);
+  }, [authContext.user, updateChartData]);
 
   return (
     <>
