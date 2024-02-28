@@ -11,3 +11,12 @@ InventoryFlow is an inventory management system designed to streamline inventory
   <li><b>Reporting and Analytics: </b>Generate reports, analyze sales trends, monitor stock levels, and make data-driven decisions.</li>
   <li><b>Responsive Design: </b>Optimized for various screen sizes to provide a seamless user experience across devices.</li>
 </ul>
+
+<h3>Technologies Used</h3>
+<ul>
+  <li><b>Frontend: </b>React.js</li>
+  <li><b>Styling: </b>TailwindCSS</li>
+  <li><b>Backend: </b>Node.js, Express.js</li>
+  <li><b>Database: </b>MongoDB</li>
+  <li><b>State management: </b>ContextAPI</li>
+</ul>
