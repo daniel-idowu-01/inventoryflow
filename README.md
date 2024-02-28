@@ -64,5 +64,14 @@ To run InventoryFlow locally, follow these steps:
     npm start
     ```
 
-6. Access InventoryFlow in your browser at `http://l
+6. Access InventoryFlow in your browser at `http://localhost:3000`.
+
+
+## Contributing
+
+Contributions are welcome! Feel free to submit bug reports, feature requests, or pull requests to help improve InventoryFlow.
+
+## License
+
+This project is licensed under the MIT License.
 
