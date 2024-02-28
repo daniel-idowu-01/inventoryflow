@@ -20,3 +20,45 @@ InventoryFlow is an inventory management system designed to streamline inventory
   <li><b>Database: </b>MongoDB</li>
   <li><b>State management: </b>ContextAPI</li>
 </ul>
+
+
+## Installation
+
+To run InventoryFlow locally, follow these steps:
+
+1. Clone the repository:
+
+    ```bash
+    git clone https://github.com/your-username/inventoryflow.git
+    ```
+
+2. Navigate to the project directory:
+
+    ```bash
+    cd inventoryflow
+    ```
+
+3. Install dependencies for both frontend and backend:
+
+    ```bash
+    cd frontend
+    npm install
+
+    cd ../backend
+    npm install
+    ```
+
+4. Set up MongoDB database and configure the connection in the backend.
+
+5. Start the development servers:
+
+    ```bash
+    # In the frontend directory
+    npm start
+
+    # In the backend directory
+    npm start
+    ```
+
+6. Access InventoryFlow in your browser at `http://l
+
