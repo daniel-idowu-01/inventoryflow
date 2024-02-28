@@ -71,7 +71,4 @@ To run InventoryFlow locally, follow these steps:
 
 Contributions are welcome! Feel free to submit bug reports, feature requests, or pull requests to help improve InventoryFlow.
 
-## License
-
-This project is licensed under the MIT License.
 
