@@ -73,6 +73,19 @@ function Dashboard() {
     ],
   });
 
+  // Update Chart Data
+  const updateChartData = (salesData) => {
+    setChart({
+      ...chart,
+      series: [
+        {
+          name: "Monthly Sales Amount",
+          data: [...salesData],
+        },
+      ],
+    });
+  };
+
   const authContext = useContext(AuthContext);
 
   // data to display as dashboard stats
@@ -120,19 +133,6 @@ function Dashboard() {
   ]
 
   useEffect(() => {
-    // Update Chart Data
-    const updateChartData = (salesData) => {
-      setChart({
-        ...chart,
-        series: [
-          {
-            name: "Monthly Sales Amount",
-            data: [...salesData],
-          },
-        ],
-      });
-    };
-    
     // Fetching total sales amount
     const fetchTotalSaleAmount = () => {
       fetch(
@@ -183,7 +183,7 @@ function Dashboard() {
     fetchStoresData();
     fetchProductsData();
     fetchMonthlySalesData();
-  }, [authContext.user]);
+  }, [authContext.user, chart]);
 
   return (
     <>
