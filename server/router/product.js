@@ -17,6 +17,4 @@ app.post("/update", product.updateSelectedProduct);
 // Search Product
 app.get("/search", product.searchProduct);
 
-// https://inventoryflow.onrender.com/api/product/search?searchTerm=fa
-
 module.exports = app;

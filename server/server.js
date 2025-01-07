@@ -1,5 +1,5 @@
 const express = require("express");
-const { main } = require("./models/index");
+const { connectDB } = require("./models/index");
 const productRoute = require("./router/product");
 const storeRoute = require("./router/store");
 const purchaseRoute = require("./router/purchase");
@@ -11,9 +11,10 @@ const Product = require("./models/product");
 
 const app = express();
 const PORT = 4000;
-main();
 app.use(express.json());
 app.use(cors());
+
+connectDB();
 
 // Store API
 app.use("/api/store", storeRoute);
@@ -30,45 +31,12 @@ app.use("/api/sales", salesRoute);
 // ------------- Signin --------------
 let userAuthCheck;
 app.post("/api/login", async (req, res) => {
-  console.log(req.body);
-  try {
-    const user = await User.findOne({
-      email: req.body.email,
-      password: req.body.password,
-    });
-    console.log("USER: ", user);
-    if (user) {
-      res.send(user);
-      userAuthCheck = user;
-    } else {
-      res.status(400).send("Invalid Credentials");
-      userAuthCheck = null;
-    }
-  } catch (error) {
-    console.log(error);
-    res.send(error);
-  }
+  
 });
 
 // Registration API
 app.post("/api/register", (req, res) => {
-  let registerUser = new User({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: req.body.password,
-    phoneNumber: req.body.phoneNumber,
-    imageUrl: req.body.imageUrl,
-  });
-
-  registerUser
-    .save()
-    .then((result) => {
-      res.status(200).send(result);
-      alert("Signup Successfull");
-    })
-    .catch((err) => console.log("Signup Error: ", err));
-  console.log("request: ", req.body);
+  
 });
 
 

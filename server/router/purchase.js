@@ -11,6 +11,3 @@ app.get("/get/:userID", purchase.getPurchaseData);
 app.get("/get/:userID/totalpurchaseamount", purchase.getTotalPurchaseAmount);
 
 module.exports = app;
-
-// https://inventoryflow.onrender.com/api/purchase/add POST
-// https://inventoryflow.onrender.com/api/purchase/get GET
