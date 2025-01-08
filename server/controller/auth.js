@@ -29,7 +29,7 @@ const signUp = async (req, res) => {
   if (user) {
     return res.status(400).send("User already exists!");
   }
-  
+
   const hashedPassword = await bcrypt.hash(password, 10);
 
   let registerUser = await User.create({
