@@ -4,8 +4,8 @@ const productRoute = require("./router/product");
 const storeRoute = require("./router/store");
 const purchaseRoute = require("./router/purchase");
 const salesRoute = require("./router/sales");
+const authRoute = require("./router/auth");
 const cors = require("cors");
-const User = require("./models/users");
 const Product = require("./models/product");
 
 
@@ -28,17 +28,8 @@ app.use("/api/purchase", purchaseRoute);
 // Sales API
 app.use("/api/sales", salesRoute);
 
-// ------------- Signin --------------
-let userAuthCheck;
-app.post("/api/login", async (req, res) => {
-  
-});
-
-// Registration API
-app.post("/api/register", (req, res) => {
-  
-});
-
+// Auth API
+app.use("/api/auth", authRoute);
 
 app.get("/testget", async (req, res) => {
   const result = await Product.findOne({ _id: '6429979b2e5434138eda1564' })
@@ -48,5 +39,5 @@ app.get("/testget", async (req, res) => {
 
 // Here we are listening to the server
 app.listen(PORT, () => {
-  console.log("I am live again");
+  console.log("Server is running on port " + PORT);
 });
