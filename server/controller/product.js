@@ -7,7 +7,7 @@ const addProduct = async (req, res, next) => {
     const { userId, name, manufacturer, description } = req.body;
 
     if (!userId || !name || !manufacturer || !description) {
-      return res.status(400).send("All fields are required");
+      return res.status(400).json({ message: "All fields are required" });
     }
 
     await Product.create({
@@ -18,10 +18,10 @@ const addProduct = async (req, res, next) => {
       description,
     });
 
-    return res.status(201).send("Product added successfully!");
+    return res.status(201).json({ message: "Product added successfully!" });
   } catch (error) {
     console.log(error);
-    throw error;
+    next(error);
   }
 };
 
@@ -31,16 +31,21 @@ const getAllProducts = async (req, res, next) => {
     const userId = req.params.userId;
 
     if (!userId) {
-      return res.status(400).send("User ID is required");
+      return res.status(400).json({ message: "User ID is required" });
     }
 
     const findAllProducts = await Product.find({
       userID: userId,
     }).sort({ _id: -1 }); // -1 for descending;
-    res.json(findAllProducts);
+
+    if (!findAllProducts) {
+      return res.status(400).json({ message: "No products found" });
+    }
+
+    return res.status(200).json({ message: findAllProducts });
   } catch (error) {
     console.log(error);
-    throw error;
+    next(error);
   }
 };
 
@@ -71,7 +76,7 @@ const updateSelectedProduct = async (req, res, next) => {
     res.json(updatedResult);
   } catch (error) {
     console.log(error);
-    res.status(402).send("Error");
+    res.status(402).json("Error");
   }
 };
 
