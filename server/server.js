@@ -31,11 +31,11 @@ app.use("/api/sales", salesRoute);
 // Auth API
 app.use("/api/auth", authRoute);
 
-app.get("/testget", async (req, res) => {
-  const result = await Product.findOne({ _id: '6429979b2e5434138eda1564' })
-  res.json(result)
-
-})
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
+  return res.status(statusCode).json({ success: false, statusCode, message });
+});
 
 // Here we are listening to the server
 app.listen(PORT, () => {

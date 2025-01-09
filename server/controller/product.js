@@ -2,7 +2,7 @@ const Product = require("../models/product");
 const Purchase = require("../models/purchase");
 const Sales = require("../models/sales");
 
-const addProduct = async (req, res) => {
+const addProduct = async (req, res, next) => {
   try {
     const { userId, name, manufacturer, description } = req.body;
 
@@ -26,15 +26,26 @@ const addProduct = async (req, res) => {
 };
 
 // Get All Products
-const getAllProducts = async (req, res) => {
-  const findAllProducts = await Product.find({
-    userID: req.params.userId,
-  }).sort({ _id: -1 }); // -1 for descending;
-  res.json(findAllProducts);
+const getAllProducts = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+
+    if (!userId) {
+      return res.status(400).send("User ID is required");
+    }
+
+    const findAllProducts = await Product.find({
+      userID: userId,
+    }).sort({ _id: -1 }); // -1 for descending;
+    res.json(findAllProducts);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };
 
 // Delete Selected Product
-const deleteSelectedProduct = async (req, res) => {
+const deleteSelectedProduct = async (req, res, next) => {
   const deleteProduct = await Product.deleteOne({ _id: req.params.id });
   const deletePurchaseProduct = await Purchase.deleteOne({
     ProductID: req.params.id,
@@ -45,7 +56,7 @@ const deleteSelectedProduct = async (req, res) => {
 };
 
 // Update Selected Product
-const updateSelectedProduct = async (req, res) => {
+const updateSelectedProduct = async (req, res, next) => {
   try {
     const updatedResult = await Product.findByIdAndUpdate(
       { _id: req.body.productID },
@@ -65,7 +76,7 @@ const updateSelectedProduct = async (req, res) => {
 };
 
 // Search Products
-const searchProduct = async (req, res) => {
+const searchProduct = async (req, res, next) => {
   const searchTerm = req.query.searchTerm;
   const products = await Product.find({
     name: { $regex: searchTerm, $options: "i" },
