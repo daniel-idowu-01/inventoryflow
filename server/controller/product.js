@@ -103,11 +103,25 @@ const updateSelectedProduct = async (req, res, next) => {
 
 // Search Products
 const searchProduct = async (req, res, next) => {
-  const searchTerm = req.query.searchTerm;
-  const products = await Product.find({
-    name: { $regex: searchTerm, $options: "i" },
-  });
-  res.json(products);
+  try {
+    const searchTerm = req.query.searchTerm;
+    if (!searchTerm) {
+      return res.status(400).json({ message: "Search term is required" });
+    }
+    
+    const products = await Product.find({
+      name: { $regex: searchTerm, $options: "i" },
+    });
+
+    if (!products) {
+      return res.status(400).json({ message: "No products found" });
+    }
+
+    res.status(200).json({ message: products });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
 };
 
 module.exports = {
