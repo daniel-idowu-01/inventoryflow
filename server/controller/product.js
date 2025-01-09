@@ -51,13 +51,29 @@ const getAllProducts = async (req, res, next) => {
 
 // Delete Selected Product
 const deleteSelectedProduct = async (req, res, next) => {
-  const deleteProduct = await Product.deleteOne({ _id: req.params.id });
-  const deletePurchaseProduct = await Purchase.deleteOne({
-    ProductID: req.params.id,
-  });
+  let product, productID;
+  try {
+    productID = req.params.id;
+    if (!productID) {
+      return res.status(400).json({ message: "Product ID is required" });
+    }
 
-  const deleteSaleProduct = await Sales.deleteOne({ ProductID: req.params.id });
-  res.json({ deleteProduct, deletePurchaseProduct, deleteSaleProduct });
+    product = await Product.findById(productID);
+    if (!product) {
+      return res.status(400).json({ message: "Product not found" });
+    }
+
+    await Promise.all([
+      Product.deleteOne({ _id: productID }),
+      Purchase.deleteOne({ ProductID: productID }),
+      Sales.deleteOne({ ProductID: productID }),
+    ]);
+
+    res.status(200).json({ message: "Product deleted successfully" });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
 };
 
 // Update Selected Product
