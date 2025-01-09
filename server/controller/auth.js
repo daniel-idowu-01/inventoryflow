@@ -44,21 +44,34 @@ const signUp = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  console.log(req.body);
+  let user, token, passwordMatch;
   try {
-    const user = await User.findOne({
-      email: req.body.email,
-      password: req.body.password,
-    });
-    console.log("USER: ", user);
-    if (user) {
-      res.send(user);
-    } else {
-      res.status(400).send("Invalid Credentials");
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).send("Email or password is required!");
     }
+
+    user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).send("User not found!");
+    }
+
+    // if (!user.emailVerified) {
+    //   return res.status(401).send("Please confirm your email to login!");
+    // }
+
+    passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      return res.status(400).send("Wrong credentials!");
+    }
+
+    token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+
+    res.status(200).json({ success: true, data: token });
   } catch (error) {
     console.log(error);
-    res.send(error);
   }
 };
 
