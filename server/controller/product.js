@@ -79,20 +79,25 @@ const deleteSelectedProduct = async (req, res, next) => {
 // Update Selected Product
 const updateSelectedProduct = async (req, res, next) => {
   try {
+    const { productID, name, manufacturer, description } = req.body;
     const updatedResult = await Product.findByIdAndUpdate(
-      { _id: req.body.productID },
+      { _id: productID },
       {
-        name: req.body.name,
-        manufacturer: req.body.manufacturer,
-        description: req.body.description,
+        name,
+        manufacturer,
+        description,
       },
       { new: true }
     );
-    console.log(updatedResult);
-    res.json(updatedResult);
+
+    if (!updatedResult) {
+      return res.status(400).json({ message: "Product not found" });
+    }
+
+    res.status(200).json({ message: "Product updated successfully" });
   } catch (error) {
     console.log(error);
-    res.status(402).json("Error");
+    next(error);
   }
 };
 
