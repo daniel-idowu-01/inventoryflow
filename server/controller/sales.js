@@ -40,12 +40,28 @@ const addSales = async (req, res, next) => {
 };
 
 // Get All Sales Data
-const getSalesData = async (req, res) => {
-  const findAllSalesData = await Sales.find({ userId: req.params.userId })
-    .sort({ _id: -1 })
-    .populate("ProductID")
-    .populate("StoreID"); // -1 for descending order
-  res.json(findAllSalesData);
+const getSalesData = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is required" });
+    }
+
+    const findAllSalesData = await Sales.find({ userId })
+      .sort({ _id: -1 })
+      .populate("ProductID")
+      .populate("StoreID"); // -1 for descending order
+
+    if (!findAllSalesData) {
+      return res.status(400).json({ message: "No sale found" });
+    }
+
+    return res.status(200).json({ message: findAllSalesData });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
 };
 
 // Get total sales amount

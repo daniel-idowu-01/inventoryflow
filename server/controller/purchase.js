@@ -43,22 +43,27 @@ const addPurchase = async (req, res, next) => {
 };
 
 // Get All Purchase Data
-const getPurchaseData = async (req, res) => {
-  const userId = req.params.userId;
+const getPurchaseData = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
 
-  if (!userId) {
-    return res.status(400).json({ message: "User ID is required" });
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is required" });
+    }
+
+    const findAllPurchaseData = await Purchase.find({ userId })
+      .sort({ _id: -1 })
+      .populate("ProductID"); // -1 for descending order
+
+    if (!findAllPurchaseData) {
+      return res.status(400).json({ message: "No purchase found" });
+    }
+
+    return res.status(200).json({ message: findAllPurchaseData });
+  } catch (error) {
+    console.log(error);
+    next(error);
   }
-
-  const findAllPurchaseData = await Purchase.find({ userId })
-    .sort({ _id: -1 })
-    .populate("ProductID"); // -1 for descending order
-
-  if (!findAllPurchaseData) {
-    return res.status(400).json({ message: "No purchase found" });
-  }
-
-  return res.status(200).json({ message: findAllPurchaseData });
 };
 
 // Get total purchase amount
