@@ -54,10 +54,10 @@ const getPurchaseData = async (req, res) => {
     .sort({ _id: -1 })
     .populate("ProductID"); // -1 for descending order
 
-    if (!findAllPurchaseData) {
-      return res.status(400).json({ message: "No purchase found" });
-    }
-    
+  if (!findAllPurchaseData) {
+    return res.status(400).json({ message: "No purchase found" });
+  }
+
   return res.status(200).json({ message: findAllPurchaseData });
 };
 
