@@ -10,13 +10,17 @@ const addProduct = async (req, res, next) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    await Product.create({
+    const product = await Product.create({
       userID: userId,
       name,
       manufacturer,
       stock: 0,
       description,
     });
+
+    if (!product) {
+      return res.status(400).json({ message: "Error adding product" });
+    }
 
     return res.status(201).json({ message: "Product added successfully!" });
   } catch (error) {
@@ -108,7 +112,7 @@ const searchProduct = async (req, res, next) => {
     if (!searchTerm) {
       return res.status(400).json({ message: "Search term is required" });
     }
-    
+
     const products = await Product.find({
       name: { $regex: searchTerm, $options: "i" },
     });
