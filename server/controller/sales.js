@@ -2,25 +2,41 @@ const Sales = require("../models/sales");
 const { soldStock } = require("../utils/helpers");
 
 // Add Sales
-const addSales = (req, res) => {
-  const addSale = new Sales({
-    userId: req.body.userId,
-    ProductID: req.body.productID,
-    StoreID: req.body.storeID,
-    StockSold: req.body.stockSold,
-    SaleDate: req.body.saleDate,
-    TotalSaleAmount: req.body.totalSaleAmount,
-  });
+const addSales = async (req, res, next) => {
+  try {
+    const { userId, productID, storeID, stockSold, saleDate, totalSaleAmount } =
+      req.body;
 
-  addSale
-    .save()
-    .then((result) => {
-      soldStock(req.body.productID, req.body.stockSold);
-      res.status(200).send(result);
-    })
-    .catch((err) => {
-      res.status(402).send(err);
+    if (
+      !userId ||
+      !productID ||
+      !storeID ||
+      !stockSold ||
+      !saleDate ||
+      !totalSaleAmount
+    ) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    const addSale = await Sales.create({
+      userId,
+      productID,
+      storeID,
+      stockSold,
+      saleDate,
+      totalSaleAmount,
     });
+
+    if (!addSale) {
+      return res.status(400).json({ message: "Error adding sale details" });
+    }
+    soldStock(productID, stockSold);
+
+    res.status(201).json({ message: "Sale details added successfully!" });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
 };
 
 // Get All Sales Data
