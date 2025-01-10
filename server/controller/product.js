@@ -11,7 +11,7 @@ const addProduct = async (req, res, next) => {
     }
 
     const product = await Product.create({
-      userId: userId,
+      userId,
       name,
       manufacturer,
       stock: 0,
@@ -39,7 +39,7 @@ const getAllProducts = async (req, res, next) => {
     }
 
     const findAllProducts = await Product.find({
-      userId: userId,
+      userId,
     }).sort({ _id: -1 }); // -1 for descending;
 
     if (!findAllProducts) {
@@ -69,8 +69,8 @@ const deleteSelectedProduct = async (req, res, next) => {
 
     await Promise.all([
       Product.deleteOne({ _id: productID }),
-      Purchase.deleteOne({ ProductID: productID }),
-      Sales.deleteOne({ ProductID: productID }),
+      Purchase.deleteOne({ productID }),
+      Sales.deleteOne({ productID }),
     ]);
 
     res.status(200).json({ message: "Product deleted successfully" });

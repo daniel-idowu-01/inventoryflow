@@ -23,11 +23,11 @@ const addPurchase = async (req, res, next) => {
     }
 
     const addPurchaseDetails = await Purchase.create({
-      userId: userId,
-      ProductID: productID,
-      QuantityPurchased: quantityPurchased,
-      PurchaseDate: purchaseDate,
-      TotalPurchaseAmount: totalPurchaseAmount,
+      userId,
+      productID,
+      quantityPurchased,
+      purchaseDate,
+      totalPurchaseAmount,
     });
 
     if (!addPurchaseDetails) {
@@ -50,7 +50,7 @@ const getPurchaseData = async (req, res) => {
     return res.status(400).json({ message: "User ID is required" });
   }
 
-  const findAllPurchaseData = await Purchase.find({ userId: userId })
+  const findAllPurchaseData = await Purchase.find({ userId })
     .sort({ _id: -1 })
     .populate("ProductID"); // -1 for descending order
 
@@ -64,11 +64,22 @@ const getPurchaseData = async (req, res) => {
 // Get total purchase amount
 const getTotalPurchaseAmount = async (req, res) => {
   let totalPurchaseAmount = 0;
-  const purchaseData = await Purchase.find({ userId: req.params.userId });
+  let userId = req.params.userId;
+
+  if (!userId) {
+    return res.status(400).json({ message: "User ID is required" });
+  }
+
+  const purchaseData = await Purchase.find({ userId });
   purchaseData.forEach((purchase) => {
-    totalPurchaseAmount += purchase.TotalPurchaseAmount;
+    totalPurchaseAmount += purchase.totalPurchaseAmount;
   });
-  res.json({ totalPurchaseAmount });
+
+  if (totalPurchaseAmount === 0) {
+    return res.status(400).json({ message: "No purchase found" });
+  }
+
+  return res.status(200).json({ message: totalPurchaseAmount });
 };
 
 module.exports = { addPurchase, getPurchaseData, getTotalPurchaseAmount };

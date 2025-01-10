@@ -14,7 +14,7 @@ const purchaseStock = async (productID, purchaseStockData) => {
       },
       { new: true }
     );
-    console.log(PurchaseStock);
+    console.log('=======Purchase Stock==========', PurchaseStock);
   } catch (error) {
     console.error("Error updating Purchase stock ", error);
   }
