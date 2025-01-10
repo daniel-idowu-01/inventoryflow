@@ -1,5 +1,5 @@
 const Purchase = require("../models/purchase");
-const purchaseStock = require("./purchaseStock");
+const purchaseStock = require('../utils/helpers')
 
 // Add Purchase Details
 const addPurchase = async (req, res, next) => {
