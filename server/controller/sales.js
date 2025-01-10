@@ -4,7 +4,7 @@ const soldStock = require("../controller/soldStock");
 // Add Sales
 const addSales = (req, res) => {
   const addSale = new Sales({
-    userID: req.body.userID,
+    userId: req.body.userId,
     ProductID: req.body.productID,
     StoreID: req.body.storeID,
     StockSold: req.body.stockSold,
@@ -25,7 +25,7 @@ const addSales = (req, res) => {
 
 // Get All Sales Data
 const getSalesData = async (req, res) => {
-  const findAllSalesData = await Sales.find({"userID": req.params.userID})
+  const findAllSalesData = await Sales.find({ userId: req.params.userId })
     .sort({ _id: -1 })
     .populate("ProductID")
     .populate("StoreID"); // -1 for descending order
@@ -33,15 +33,14 @@ const getSalesData = async (req, res) => {
 };
 
 // Get total sales amount
-const getTotalSalesAmount = async(req,res) => {
+const getTotalSalesAmount = async (req, res) => {
   let totalSaleAmount = 0;
-  const salesData = await Sales.find({"userID": req.params.userID});
-  salesData.forEach((sale)=>{
+  const salesData = await Sales.find({ userId: req.params.userId });
+  salesData.forEach((sale) => {
     totalSaleAmount += sale.TotalSaleAmount;
-  })
-  res.json({totalSaleAmount});
-
-}
+  });
+  res.json({ totalSaleAmount });
+};
 
 const getMonthlySales = async (req, res) => {
   try {
@@ -50,7 +49,7 @@ const getMonthlySales = async (req, res) => {
     // Initialize array with 12 zeros
     const salesAmount = [];
     salesAmount.length = 12;
-    salesAmount.fill(0)
+    salesAmount.fill(0);
 
     sales.forEach((sale) => {
       const monthIndex = parseInt(sale.SaleDate.split("-")[1]) - 1;
@@ -65,6 +64,9 @@ const getMonthlySales = async (req, res) => {
   }
 };
 
-
-
-module.exports = { addSales, getMonthlySales, getSalesData,  getTotalSalesAmount};
+module.exports = {
+  addSales,
+  getMonthlySales,
+  getSalesData,
+  getTotalSalesAmount,
+};

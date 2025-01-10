@@ -23,7 +23,7 @@ const addPurchase = async (req, res, next) => {
     }
 
     const addPurchaseDetails = await Purchase.create({
-      userID: userId,
+      userId: userId,
       ProductID: productID,
       QuantityPurchased: quantityPurchased,
       PurchaseDate: purchaseDate,
@@ -50,7 +50,7 @@ const getPurchaseData = async (req, res) => {
     return res.status(400).json({ message: "User ID is required" });
   }
 
-  const findAllPurchaseData = await Purchase.find({ userID: userId })
+  const findAllPurchaseData = await Purchase.find({ userId: userId })
     .sort({ _id: -1 })
     .populate("ProductID"); // -1 for descending order
 
@@ -64,7 +64,7 @@ const getPurchaseData = async (req, res) => {
 // Get total purchase amount
 const getTotalPurchaseAmount = async (req, res) => {
   let totalPurchaseAmount = 0;
-  const purchaseData = await Purchase.find({ userID: req.params.userID });
+  const purchaseData = await Purchase.find({ userId: req.params.userId });
   purchaseData.forEach((purchase) => {
     totalPurchaseAmount += purchase.TotalPurchaseAmount;
   });

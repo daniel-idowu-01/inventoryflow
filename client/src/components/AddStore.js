@@ -3,11 +3,11 @@ import { Dialog, Transition } from "@headlessui/react";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import UploadImage from "./UploadImage";
 import AuthContext from "../AuthContext";
-import { Spinner } from 'flowbite-react';
+import { Spinner } from "flowbite-react";
 
 export default function AddStore() {
   const authContext = useContext(AuthContext);
-  const [imageLoading, setImageLoading] = useState(false)
+  const [imageLoading, setImageLoading] = useState(false);
   const [form, setForm] = useState({
     userId: authContext.user,
     name: "",
@@ -44,7 +44,7 @@ export default function AddStore() {
     data.append("file", image);
     data.append("upload_preset", "inventoryapp");
 
-    setImageLoading(true)
+    setImageLoading(true);
     await fetch("https://api.cloudinary.com/v1_1/ddhayhptm/image/upload", {
       method: "POST",
       body: data,
@@ -52,11 +52,11 @@ export default function AddStore() {
       .then((res) => res.json())
       .then((data) => {
         setForm({ ...form, image: data.url });
-        setImageLoading(false)
+        setImageLoading(false);
       })
       .catch((error) => {
-        console.log(error)
-        setImageLoading(false)
+        console.log(error);
+        setImageLoading(false);
       });
   };
 
@@ -193,7 +193,11 @@ export default function AddStore() {
                             <div className="flex">
                               <UploadImage uploadImage={uploadImage} />
                               <p className="text-green-500 text-sm inline-block">
-                                {imageLoading ? <Spinner aria-label="Default status example" /> : ''}
+                                {imageLoading ? (
+                                  <Spinner aria-label="Default status example" />
+                                ) : (
+                                  ""
+                                )}
                               </p>
                             </div>
                             {/* <label

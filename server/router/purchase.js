@@ -6,8 +6,8 @@ const purchase = require("../controller/purchase");
 app.post("/add", purchase.addPurchase);
 
 // Get All Purchase Data
-app.get("/get/:userID", purchase.getPurchaseData);
+app.get("/get/:userId", purchase.getPurchaseData);
 
-app.get("/get/:userID/totalpurchaseamount", purchase.getTotalPurchaseAmount);
+app.get("/get/:userId/totalpurchaseamount", purchase.getTotalPurchaseAmount);
 
 module.exports = app;

@@ -2,10 +2,10 @@ const express = require("express");
 const app = express();
 const store = require("../controller/store");
 
-// Add Store 
+// Add Store
 app.post("/add", store.addStore);
 
 // Get All Store
-app.get("/get/:userID", store.getAllStores)
+app.get("/get/:userId", store.getAllStores);
 
 module.exports = app;

@@ -6,10 +6,10 @@ export default function AddPurchaseDetails({
   addSaleModalSetting,
   products,
   handlePageUpdate,
-  authContext
+  authContext,
 }) {
   const [purchase, setPurchase] = useState({
-    userID: authContext.user,
+    userId: authContext.user,
     productID: "",
     quantityPurchased: "",
     purchaseDate: "",

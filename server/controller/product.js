@@ -11,7 +11,7 @@ const addProduct = async (req, res, next) => {
     }
 
     const product = await Product.create({
-      userID: userId,
+      userId: userId,
       name,
       manufacturer,
       stock: 0,
@@ -39,7 +39,7 @@ const getAllProducts = async (req, res, next) => {
     }
 
     const findAllProducts = await Product.find({
-      userID: userId,
+      userId: userId,
     }).sort({ _id: -1 }); // -1 for descending;
 
     if (!findAllProducts) {
