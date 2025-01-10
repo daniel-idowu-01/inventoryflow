@@ -67,14 +67,21 @@ const getSalesData = async (req, res, next) => {
 // Get total sales amount
 const getTotalSalesAmount = async (req, res) => {
   let totalSaleAmount = 0;
-  const salesData = await Sales.find({ userId: req.params.userId });
+  let userId = req.params.userId;
+
+  if (!userId) {
+    return res.status(400).json({ message: "User ID is required" });
+  }
+
+  const salesData = await Sales.find({ userId });
   salesData.forEach((sale) => {
-    totalSaleAmount += sale.TotalSaleAmount;
+    totalSaleAmount += sale.totalSaleAmount;
   });
-  res.json({ totalSaleAmount });
+
+  return res.status(200).json({ message: totalSaleAmount });
 };
 
-const getMonthlySales = async (req, res) => {
+const getMonthlySales = async (req, res, next) => {
   try {
     const sales = await Sales.find();
 
@@ -84,15 +91,14 @@ const getMonthlySales = async (req, res) => {
     salesAmount.fill(0);
 
     sales.forEach((sale) => {
-      const monthIndex = parseInt(sale.SaleDate.split("-")[1]) - 1;
-
-      salesAmount[monthIndex] += sale.TotalSaleAmount;
+      const monthIndex = parseInt(sale.saleDate.split("-")[1]) - 1;
+      salesAmount[monthIndex] += sale.totalSaleAmount;
     });
 
-    res.status(200).json({ salesAmount });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Server error" });
+    return res.status(200).json({ message: salesAmount });
+  } catch (error) {
+    console.error(error);
+    next(error);
   }
 };
 

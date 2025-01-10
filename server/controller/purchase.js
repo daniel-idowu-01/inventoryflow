@@ -67,24 +67,25 @@ const getPurchaseData = async (req, res, next) => {
 };
 
 // Get total purchase amount
-const getTotalPurchaseAmount = async (req, res) => {
-  let totalPurchaseAmount = 0;
-  let userId = req.params.userId;
+const getTotalPurchaseAmount = async (req, res, next) => {
+  try {
+    let totalPurchaseAmount = 0;
+    let userId = req.params.userId;
 
-  if (!userId) {
-    return res.status(400).json({ message: "User ID is required" });
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is required" });
+    }
+
+    const purchaseData = await Purchase.find({ userId });
+    purchaseData.forEach((purchase) => {
+      totalPurchaseAmount += purchase.totalPurchaseAmount;
+    });
+
+    return res.status(200).json({ message: totalPurchaseAmount });
+  } catch (error) {
+    console.log(error);
+    next(error);
   }
-
-  const purchaseData = await Purchase.find({ userId });
-  purchaseData.forEach((purchase) => {
-    totalPurchaseAmount += purchase.totalPurchaseAmount;
-  });
-
-  if (totalPurchaseAmount === 0) {
-    return res.status(400).json({ message: "No purchase found" });
-  }
-
-  return res.status(200).json({ message: totalPurchaseAmount });
 };
 
 module.exports = { addPurchase, getPurchaseData, getTotalPurchaseAmount };
