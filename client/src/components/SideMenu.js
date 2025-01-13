@@ -72,17 +72,17 @@ function SideMenu() {
         <div className="flex items-center gap-2 bg-white p-4 hover:bg-gray-50">
           <img
             alt="Profile"
-            src={localStorageData.imageUrl}
+            src={localStorageData?.imageUrl}
             className="h-10 w-10 rounded-full object-cover"
           />
 
           <div>
             <p className="text-xs">
               <strong className="block font-medium">
-                {localStorageData.firstName + " " + localStorageData.lastName}
+                {localStorageData?.firstName + " " + localStorageData?.lastName}
               </strong>
 
-              <span> {localStorageData.email} </span>
+              <span> {localStorageData?.email} </span>
             </p>
           </div>
         </div>

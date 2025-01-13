@@ -34,7 +34,7 @@ const getAllStores = async (req, res, next) => {
   try {
     const userId = req.params.userId;
 
-    const findAllStores = await Store.find({ userId }).sort({ _id: -1 }); // -1 for descending;\
+    const findAllStores = await Store.find({ userId }).sort({ _id: -1 }); // -1 for descending;
 
     if (!findAllStores) {
       return res.status(400).json({ message: "No stores found" });
