@@ -79,45 +79,45 @@ function Dashboard() {
   const dashboardStats = [
     {
       id: 1,
-      title: 'Sales',
-      amount: '$240.94',
+      title: "Sales",
+      amount: "$240.94",
       info: `$${saleAmount}`,
       icon: <MdOutlineInventory2 />,
-      percent: '67.81%',
-      bgColor: 'bg-[#344767]',
-      textColor: 'text-green-600',
+      percent: "67.81%",
+      bgColor: "bg-[#344767]",
+      textColor: "text-green-600",
     },
     {
       id: 2,
-      title: 'Purchase',
-      amount: '$404.32',
+      title: "Purchase",
+      amount: "$404.32",
       info: `$${purchaseAmount}`,
       icon: <ImStatsBars />,
-      percent: '5.1%',
-      bgColor: 'bg-blue-500',
-      textColor: 'text-red-600'
+      percent: "5.1%",
+      bgColor: "bg-blue-500",
+      textColor: "text-red-600",
     },
     {
       id: 3,
-      title: 'Total Stores',
-      amount: '',
+      title: "Total Stores",
+      amount: "",
       info: stores.length,
       icon: <FaStoreAlt />,
-      percent: '7.3%',
-      bgColor: 'bg-green-500',
-      textColor: 'text-red-600'
+      percent: "7.3%",
+      bgColor: "bg-green-500",
+      textColor: "text-red-600",
     },
     {
       id: 4,
-      title: 'Total Products',
-      amount: '',
+      title: "Total Products",
+      amount: "",
       info: products.length,
       icon: <FiUserPlus />,
-      percent: '37.9%',
-      bgColor: 'bg-pink-500',
-      textColor: 'text-red-600'
+      percent: "37.9%",
+      bgColor: "bg-pink-500",
+      textColor: "text-red-600",
     },
-  ]
+  ];
 
   useEffect(() => {
     // Update Chart Data
@@ -132,7 +132,7 @@ function Dashboard() {
         ],
       });
     };
-    
+
     // Fetching total sales amount
     const fetchTotalSaleAmount = () => {
       fetch(
@@ -141,7 +141,6 @@ function Dashboard() {
         .then((response) => response.json())
         .then((datas) => setSaleAmount(datas.totalSaleAmount));
     };
-
 
     // Fetching total purchase amount
     const fetchTotalPurchaseAmount = () => {
@@ -152,23 +151,24 @@ function Dashboard() {
         .then((datas) => setPurchaseAmount(datas.totalPurchaseAmount));
     };
 
-
     // Fetching all stores data
     const fetchStoresData = () => {
-      fetch(`https://inventoryflow.onrender.com/api/store/get/${authContext.user}`)
+      fetch(
+        `https://inventoryflow.onrender.com/api/store/get/${authContext.user}`
+      )
         .then((response) => response.json())
         .then((datas) => setStores(datas));
     };
 
-
     // Fetching Data of All Products
     const fetchProductsData = () => {
-      fetch(`https://inventoryflow.onrender.com/api/product/get/${authContext.user}`)
+      fetch(
+        `https://inventoryflow.onrender.com/api/product/get/${authContext.user}`
+      )
         .then((response) => response.json())
         .then((datas) => setProducts(datas))
         .catch((err) => console.log(err));
     };
-
 
     // Fetching Monthly Sales
     const fetchMonthlySalesData = () => {
@@ -187,13 +187,10 @@ function Dashboard() {
 
   return (
     <>
-      <div
-        className="grid grid-cols-1 col-span-12 lg:col-span-10 gap-6 md:grid-cols-3 lg:grid-cols-4 md:place-items-center p-4"
-      >
-        {dashboardStats.map(stat => (
+      <div className="grid grid-cols-1 col-span-12 lg:col-span-10 gap-6 md:grid-cols-3 lg:grid-cols-4 md:place-items-center p-4">
+        {dashboardStats.map((stat) => (
           <StatsComp key={stat.id} {...stat} />
         ))}
-
 
         <div className="flex flex-col md:flex-row gap-3 justify-between col-span-full">
           <div className="bg-white p-8 shadow-md rounded-xl">
@@ -201,14 +198,11 @@ function Dashboard() {
               options={chart.options}
               series={chart.series}
               type="bar"
-              className='w-full md:w-[600px]'
+              className="w-full md:w-[600px]"
             />
           </div>
           <div className="bg-white p-8 shadow-md rounded-xl px-auto">
-            <Doughnut
-              data={data}
-              className="mx-auto"
-            />
+            <Doughnut data={data} className="mx-auto" />
           </div>
         </div>
       </div>
