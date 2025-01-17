@@ -30,16 +30,17 @@ function Login() {
 
     setIsLoading(true);
     axios
-      .post("https://localhost:4000/api/auth/login", form, {
+      .post("http://localhost:4000/api/auth/login", form, {
         headers: {
           "Content-Type": "application/json",
         },
       })
       .then((response) => {
-        localStorage.setItem("user", JSON.stringify(response.data));
-        authContext.signin(response.data._id, () => {
+        console.log(response);
+        if (response.status == 200) {
           navigate("/");
-        });
+        }
+        localStorage.setItem("user", JSON.stringify(response.data));
         setIsLoading(false);
       })
       .catch((error) => {

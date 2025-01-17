@@ -58,7 +58,7 @@ function Register() {
 
     setIsLoading(true);
     axios
-      .post("https://inventoryflow.onrender.com/api/auth", form, {
+      .post("http://localhost:4000/api/auth", form, {
         headers: {
           "Content-Type": "application/json",
         },

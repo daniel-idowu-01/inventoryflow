@@ -3,9 +3,9 @@ import { useContext } from "react";
 import { Navigate } from "react-router-dom";
 
 function ProtectedWrapper(props) {
-  const auth = useContext(AuthContext);
+  const token = localStorage.getItem("user");
 
-  if (!auth.user) {
+  if (!token) {
     return <Navigate to="/login" replace />;
   }
 

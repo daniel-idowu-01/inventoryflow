@@ -1,5 +1,6 @@
 const User = require("../models/users");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 const passwordRegex =
