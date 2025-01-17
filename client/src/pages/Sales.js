@@ -24,7 +24,9 @@ function Sales() {
   useEffect(() => {
     // Fetching Data of All Sales
     const fetchSalesData = () => {
-      fetch(`https://inventoryflow.onrender.com/api/sales/get/${authContext.user}`)
+      fetch(
+        `https://inventoryflow.onrender.com/api/sales/get/${authContext.user}`
+      )
         .then((response) => response.json())
         .then((data) => {
           setAllSalesData(data);
@@ -32,10 +34,11 @@ function Sales() {
         .catch((err) => console.log(err));
     };
 
-
     // Fetching Data of All Products
     const fetchProductsData = () => {
-      fetch(`https://inventoryflow.onrender.com/api/product/get/${authContext.user}`)
+      fetch(
+        `https://inventoryflow.onrender.com/api/product/get/${authContext.user}`
+      )
         .then((response) => response.json())
         .then((data) => {
           setAllProducts(data);
@@ -43,21 +46,22 @@ function Sales() {
         .catch((err) => console.log(err));
     };
 
-
     // Fetching Data of All Stores
     const fetchStoresData = () => {
-      fetch(`https://inventoryflow.onrender.com/api/store/get/${authContext.user}`)
+      fetch(
+        `https://inventoryflow.onrender.com/api/store/get/${authContext.user}`
+      )
         .then((response) => response.json())
         .then((data) => {
           setAllStores(data);
         });
     };
-    
+
     fetchSalesData();
     fetchProductsData();
     fetchStoresData();
   }, [updatePage, authContext.user]);
-  
+
   return (
     <div className="col-span-12 lg:col-span-10  flex justify-center">
       <div className=" flex flex-col gap-5 w-11/12">

@@ -45,7 +45,7 @@ function Login() {
       .catch((error) => {
         console.log("Something went wrong ", error);
         setError(true);
-        setErrorMessage("Email or Password Not Correct");
+        setErrorMessage("Wrong credentials!");
         setTimeout(() => {
           setError(false);
         }, 2000);

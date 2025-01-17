@@ -15,7 +15,6 @@ function PurchaseDetails() {
     setPurchaseModal(!showPurchaseModal);
   };
 
-
   // Handle Page Update
   const handlePageUpdate = () => {
     setUpdatePage(!updatePage);
@@ -24,7 +23,9 @@ function PurchaseDetails() {
   useEffect(() => {
     // Fetching Data of All Purchase items
     const fetchPurchaseData = () => {
-      fetch(`https://inventoryflow.onrender.com/api/purchase/get/${authContext.user}`)
+      fetch(
+        `https://inventoryflow.onrender.com/api/purchase/get/${authContext.user}`
+      )
         .then((response) => response.json())
         .then((data) => {
           setAllPurchaseData(data);
@@ -32,10 +33,11 @@ function PurchaseDetails() {
         .catch((err) => console.log(err));
     };
 
-
     // Fetching Data of All Products
     const fetchProductsData = () => {
-      fetch(`https://inventoryflow.onrender.com/api/product/get/${authContext.user}`)
+      fetch(
+        `https://inventoryflow.onrender.com/api/product/get/${authContext.user}`
+      )
         .then((response) => response.json())
         .then((data) => {
           setAllProducts(data);
@@ -104,7 +106,7 @@ function PurchaseDetails() {
                     </td>
                     <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                       {new Date(element.PurchaseDate).toLocaleDateString() ===
-                        new Date().toLocaleDateString()
+                      new Date().toLocaleDateString()
                         ? "Today"
                         : element.PurchaseDate}
                     </td>

@@ -8,22 +8,22 @@ function Store() {
 
   const authContext = useContext(AuthContext);
 
- 
-
   const modalSetting = () => {
     setShowModal(!showModal);
   };
-  
+
   useEffect(() => {
-     // Fetching all stores data
+    // Fetching all stores data
     const fetchData = () => {
-      fetch(`https://inventoryflow.onrender.com/api/store/get/${authContext.user}`)
+      fetch(
+        `https://inventoryflow.onrender.com/api/store/get/${authContext.user}`
+      )
         .then((response) => response.json())
         .then((data) => {
           setAllStores(data);
         });
     };
-    
+
     fetchData();
   }, [authContext.user]);
 

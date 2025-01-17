@@ -13,14 +13,16 @@ function Inventory() {
   const [stores, setAllStores] = useState([]);
 
   const authContext = useContext(AuthContext);
-  console.log('====================================');
+  console.log("====================================");
   console.log(authContext);
-  console.log('====================================');
+  console.log("====================================");
 
   useEffect(() => {
     // Fetching Data of All Products
     const fetchProductsData = () => {
-      fetch(`https://inventoryflow.onrender.com/api/product/get/${authContext.user}`)
+      fetch(
+        `https://inventoryflow.onrender.com/api/product/get/${authContext.user}`
+      )
         .then((response) => response.json())
         .then((data) => {
           setAllProducts(data);
@@ -30,7 +32,9 @@ function Inventory() {
 
     // Fetching all stores data
     const fetchSalesData = () => {
-      fetch(`https://inventoryflow.onrender.com/api/store/get/${authContext.user}`)
+      fetch(
+        `https://inventoryflow.onrender.com/api/store/get/${authContext.user}`
+      )
         .then((response) => response.json())
         .then((data) => {
           setAllStores(data);
@@ -41,11 +45,11 @@ function Inventory() {
     fetchSalesData();
   }, [updatePage, authContext.user]);
 
-
-
   // Fetching Data of Search Products
   const fetchSearchData = () => {
-    fetch(`https://inventoryflow.onrender.com/api/product/search?searchTerm=${searchTerm}`)
+    fetch(
+      `https://inventoryflow.onrender.com/api/product/search?searchTerm=${searchTerm}`
+    )
       .then((response) => response.json())
       .then((data) => {
         setAllProducts(data);
@@ -64,7 +68,6 @@ function Inventory() {
     setUpdateProduct(selectedProductData);
     setShowUpdateModal(!showUpdateModal);
   };
-
 
   // Delete item
   const deleteItem = (id) => {

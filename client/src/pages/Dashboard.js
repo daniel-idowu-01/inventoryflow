@@ -153,18 +153,14 @@ function Dashboard() {
 
     // Fetching all stores data
     const fetchStoresData = () => {
-      fetch(
-        `https://inventoryflow.onrender.com/api/store/get/${authContext.user}`
-      )
+      fetch(`https://inventoryflow.onrender.com/api/store/get/${authContext.user}`)
         .then((response) => response.json())
         .then((datas) => setStores(datas));
     };
 
     // Fetching Data of All Products
     const fetchProductsData = () => {
-      fetch(
-        `https://inventoryflow.onrender.com/api/product/get/${authContext.user}`
-      )
+      fetch(`https://inventoryflow.onrender.com/api/product/get/${authContext.user}`)
         .then((response) => response.json())
         .then((datas) => setProducts(datas))
         .catch((err) => console.log(err));

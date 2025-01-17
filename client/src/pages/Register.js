@@ -6,8 +6,12 @@ import { Button, Checkbox, Label, TextInput, Spinner } from "flowbite-react";
 
 function Register() {
   const navigate = useNavigate();
+  const preset_key = process.env.REACT_APP_CLOUDINARY_PRESET_KEY;
+  const cloud_name = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
 
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [imageLoading, setImageLoading] = useState(false);
   const [form, setForm] = useState({
     firstName: "",
@@ -30,10 +34,10 @@ function Register() {
   const uploadImage = async (image) => {
     const data = new FormData();
     data.append("file", image);
-    data.append("upload_preset", "inventoryapp");
+    data.append("upload_preset", preset_key);
 
     setImageLoading(true);
-    await fetch("https://api.cloudinary.com/v1_1/ddhayhptm/image/upload", {
+    await fetch(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, {
       method: "POST",
       body: data,
     })
@@ -54,7 +58,7 @@ function Register() {
 
     setIsLoading(true);
     axios
-      .post("https://inventoryflow.onrender.com/api/auth/register", form, {
+      .post("https://inventoryflow.onrender.com/api/auth", form, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -64,7 +68,12 @@ function Register() {
         navigate("/login");
       })
       .catch((error) => {
-        console.log(error);
+        setError(true);
+        setErrorMessage(error?.response.data.message);
+        setTimeout(() => {
+          setError(false);
+        }, 4000);
+        setIsLoading(false);
       });
   };
   return (
@@ -179,6 +188,10 @@ function Register() {
                 )}
               </p>
             </div>
+
+            {error && (
+              <p className="text-xs text-red-500 italic">{errorMessage}</p>
+            )}
 
             <article className="flex justify-between">
               <div className="flex items-center gap-2">
