@@ -56,7 +56,7 @@ function Register() {
     e.preventDefault();
 
     setIsLoading(true)
-    axios.post("https://inventoryflow.onrender.com/api/register", form, {
+    axios.post("https://inventoryflow.onrender.com/api/auth/register", form, {
       headers: {
         "Content-Type": "application/json"
       }

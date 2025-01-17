@@ -30,7 +30,7 @@ function Login() {
     e.preventDefault();
 
     setIsLoading(true)
-    axios.post("https://localhost:4000/api/login", form, {
+    axios.post("https://localhost:4000/api/auth/login", form, {
       headers: {
         "Content-Type": "application/json"
       }
