@@ -37,10 +37,10 @@ function Login() {
       })
       .then((response) => {
         console.log(response);
+        localStorage.setItem("token", JSON.stringify(response.data.token));
         if (response.status == 200) {
           navigate("/");
         }
-        localStorage.setItem("user", JSON.stringify(response.data));
         setIsLoading(false);
       })
       .catch((error) => {
