@@ -25,7 +25,7 @@ export default function AddStore() {
   const cancelButtonRef = useRef(null);
 
   const addProduct = () => {
-    fetch("https://inventoryflow.onrender.com/api/store/add", {
+    fetch(`${process.env.REACT_APP_BACKEND_API}/api/store/add`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",

@@ -24,7 +24,7 @@ function PurchaseDetails() {
     // Fetching Data of All Purchase items
     const fetchPurchaseData = () => {
       fetch(
-        `https://inventoryflow.onrender.com/api/purchase/get/${authContext.user}`
+        `${process.env.REACT_APP_BACKEND_API}/api/purchase/get/${authContext.user}`
       )
         .then((response) => response.json())
         .then((data) => {
@@ -36,7 +36,7 @@ function PurchaseDetails() {
     // Fetching Data of All Products
     const fetchProductsData = () => {
       fetch(
-        `https://inventoryflow.onrender.com/api/product/get/${authContext.user}`
+        `${process.env.REACT_APP_BACKEND_API}/api/product/get/${authContext.user}`
       )
         .then((response) => response.json())
         .then((data) => {

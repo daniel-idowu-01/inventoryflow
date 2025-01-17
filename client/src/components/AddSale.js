@@ -27,7 +27,7 @@ export default function AddSale({
 
   // POST Data
   const addSale = () => {
-    fetch("https://inventoryflow.onrender.com/api/sales/add", {
+    fetch(`${process.env.REACT_APP_BACKEND_API}/api/sales/add`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",

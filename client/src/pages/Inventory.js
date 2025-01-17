@@ -21,7 +21,7 @@ function Inventory() {
     // Fetching Data of All Products
     const fetchProductsData = () => {
       fetch(
-        `https://inventoryflow.onrender.com/api/product/get/${authContext.user}`
+        `${process.env.REACT_APP_BACKEND_API}/api/product/get/${authContext.user}`
       )
         .then((response) => response.json())
         .then((data) => {
@@ -33,7 +33,7 @@ function Inventory() {
     // Fetching all stores data
     const fetchSalesData = () => {
       fetch(
-        `https://inventoryflow.onrender.com/api/store/get/${authContext.user}`
+        `${process.env.REACT_APP_BACKEND_API}/api/store/get/${authContext.user}`
       )
         .then((response) => response.json())
         .then((data) => {
@@ -48,7 +48,7 @@ function Inventory() {
   // Fetching Data of Search Products
   const fetchSearchData = () => {
     fetch(
-      `https://inventoryflow.onrender.com/api/product/search?searchTerm=${searchTerm}`
+      `${process.env.REACT_APP_BACKEND_API}/api/product/search?searchTerm=${searchTerm}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -72,8 +72,10 @@ function Inventory() {
   // Delete item
   const deleteItem = (id) => {
     console.log("Product ID: ", id);
-    console.log(`https://inventoryflow.onrender.com/api/product/delete/${id}`);
-    fetch(`https://inventoryflow.onrender.com/api/product/delete/${id}`)
+    console.log(
+      `${process.env.REACT_APP_BACKEND_API}/api/product/delete/${id}`
+    );
+    fetch(`${process.env.REACT_APP_BACKEND_API}/api/product/delete/${id}`)
       .then((response) => response.json())
       .then((data) => {
         setUpdatePage(!updatePage);

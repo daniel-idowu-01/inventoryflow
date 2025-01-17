@@ -25,7 +25,7 @@ function Sales() {
     // Fetching Data of All Sales
     const fetchSalesData = () => {
       fetch(
-        `https://inventoryflow.onrender.com/api/sales/get/${authContext.user}`
+        `${process.env.REACT_APP_BACKEND_API}/api/sales/get/${authContext.user}`
       )
         .then((response) => response.json())
         .then((data) => {
@@ -37,7 +37,7 @@ function Sales() {
     // Fetching Data of All Products
     const fetchProductsData = () => {
       fetch(
-        `https://inventoryflow.onrender.com/api/product/get/${authContext.user}`
+        `${process.env.REACT_APP_BACKEND_API}/api/product/get/${authContext.user}`
       )
         .then((response) => response.json())
         .then((data) => {
@@ -49,7 +49,7 @@ function Sales() {
     // Fetching Data of All Stores
     const fetchStoresData = () => {
       fetch(
-        `https://inventoryflow.onrender.com/api/store/get/${authContext.user}`
+        `${process.env.REACT_APP_BACKEND_API}/api/store/get/${authContext.user}`
       )
         .then((response) => response.json())
         .then((data) => {

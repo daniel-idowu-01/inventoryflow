@@ -16,7 +16,7 @@ function Store() {
     // Fetching all stores data
     const fetchData = () => {
       fetch(
-        `https://inventoryflow.onrender.com/api/store/get/${authContext.user}`
+        `${process.env.REACT_APP_BACKEND_API}/api/store/get/${authContext.user}`
       )
         .then((response) => response.json())
         .then((data) => {

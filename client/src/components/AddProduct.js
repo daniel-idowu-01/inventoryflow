@@ -23,7 +23,7 @@ export default function AddProduct({
   };
 
   const addProduct = () => {
-    fetch("https://inventoryflow.onrender.com/api/product/add", {
+    fetch(`${process.env.REACT_APP_BACKEND_API}/api/product/add`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
