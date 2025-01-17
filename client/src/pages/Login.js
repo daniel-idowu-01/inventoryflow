@@ -1,27 +1,26 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../AuthContext";
-import axios from 'axios';
-import { Button, Checkbox, Label, TextInput, Spinner } from 'flowbite-react';
+import axios from "axios";
+import { Button, Checkbox, Label, TextInput, Spinner } from "flowbite-react";
 
 function Login() {
   const authContext = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('')
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
 
-
   // function to update user input
   const handleInputChange = (e) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -29,29 +28,29 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setIsLoading(true)
-    axios.post("https://localhost:4000/api/auth/login", form, {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
+    setIsLoading(true);
+    axios
+      .post("https://localhost:4000/api/auth/login", form, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
-        localStorage.setItem('user', JSON.stringify(response.data))
+        localStorage.setItem("user", JSON.stringify(response.data));
         authContext.signin(response.data._id, () => {
-          navigate('/')
-        })
-        setIsLoading(false)
+          navigate("/");
+        });
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log("Something went wrong ", error);
-        setError(true)
-        setErrorMessage('Email or Password Not Correct')
+        setError(true);
+        setErrorMessage("Email or Password Not Correct");
         setTimeout(() => {
-          setError(false)
-        }, 2000)
-        setIsLoading(false)
+          setError(false);
+        }, 2000);
+        setIsLoading(false);
       });
-
   };
 
   return (
@@ -77,9 +76,7 @@ function Login() {
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
               Or
-              <span
-                className="font-medium text-[#407BFF] hover:text-indigo-500 ml-1"
-              >
+              <span className="font-medium text-[#407BFF] hover:text-indigo-500 ml-1">
                 start your 14-day free trial
               </span>
             </p>
@@ -116,7 +113,9 @@ function Login() {
               />
             </article>
 
-            {error && <p className="text-xs text-red-500 italic">{errorMessage}</p>}
+            {error && (
+              <p className="text-xs text-red-500 italic">{errorMessage}</p>
+            )}
 
             <article className="flex justify-between">
               <div className="flex items-center gap-2">
@@ -126,7 +125,7 @@ function Login() {
 
               <div>
                 <Link
-                  to=''
+                  to=""
                   className="text-sm text-[#407BFF] hover:text-purple-600 underline"
                 >
                   Forgot password?
@@ -134,18 +133,19 @@ function Login() {
               </div>
             </article>
 
-            <Button
-              type="submit"
-              className="bg-[#407BFF]"
-            >
-              {isLoading ? <Spinner aria-label="Default status example" /> : 'Login'}
+            <Button type="submit" className="bg-[#407BFF]">
+              {isLoading ? (
+                <Spinner aria-label="Default status example" />
+              ) : (
+                "Login"
+              )}
             </Button>
           </form>
 
           <p className="text-sm">
             Don't have an account?
             <span className="text-[#407BFF] underline ml-1 hover:text-purple-600">
-              <Link to='/register'>Create an account</Link>
+              <Link to="/register">Create an account</Link>
             </span>
           </p>
         </article>

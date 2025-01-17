@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import UploadImage from "../components/UploadImage";
-import axios from 'axios';
-import { Button, Checkbox, Label, TextInput, Spinner } from 'flowbite-react';
+import axios from "axios";
+import { Button, Checkbox, Label, TextInput, Spinner } from "flowbite-react";
 
 function Register() {
   const navigate = useNavigate();
 
-  const [isLoading, setIsLoading] = useState(false)
-  const [imageLoading, setImageLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
+  const [imageLoading, setImageLoading] = useState(false);
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -18,15 +18,13 @@ function Register() {
     imageUrl: "",
   });
 
-
   // function to update user input
   const handleInputChange = (e) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
-
 
   // function to upload image to cloudinary
   const uploadImage = async (image) => {
@@ -34,7 +32,7 @@ function Register() {
     data.append("file", image);
     data.append("upload_preset", "inventoryapp");
 
-    setImageLoading(true)
+    setImageLoading(true);
     await fetch("https://api.cloudinary.com/v1_1/ddhayhptm/image/upload", {
       method: "POST",
       body: data,
@@ -42,33 +40,33 @@ function Register() {
       .then((res) => res.json())
       .then((data) => {
         setForm({ ...form, imageUrl: data.url });
-        setImageLoading(false)
+        setImageLoading(false);
       })
       .catch((error) => {
-        console.log(error)
-        setImageLoading(false)
+        console.log(error);
+        setImageLoading(false);
       });
   };
-
 
   // function to register user
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setIsLoading(true)
-    axios.post("https://inventoryflow.onrender.com/api/auth/register", form, {
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
+    setIsLoading(true);
+    axios
+      .post("https://inventoryflow.onrender.com/api/auth/register", form, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
-        setIsLoading(false)
-        navigate('/login');
+        setIsLoading(false);
+        navigate("/login");
       })
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 h-screen  items-center place-items-center">
@@ -174,10 +172,13 @@ function Register() {
             <div>
               <UploadImage uploadImage={uploadImage} />
               <p className="text-green-500 text-sm">
-                {imageLoading ? <Spinner aria-label="Default status example" /> : ''}
+                {imageLoading ? (
+                  <Spinner aria-label="Default status example" />
+                ) : (
+                  ""
+                )}
               </p>
             </div>
-
 
             <article className="flex justify-between">
               <div className="flex items-center gap-2">
@@ -186,22 +187,19 @@ function Register() {
               </div>
             </article>
 
-            <Button
-              type="submit"
-              className="bg-[#407BFF]"
-            >
-              {isLoading
-                ?
+            <Button type="submit" className="bg-[#407BFF]">
+              {isLoading ? (
                 <Spinner aria-label="Default status example" />
-                :
-                'Create Account'}
+              ) : (
+                "Create Account"
+              )}
             </Button>
           </form>
 
           <p className="text-sm">
             Already have an account?
             <span className="text-[#407BFF] underline ml-1 hover:text-purple-600">
-              <Link to='/login'>Login here</Link>
+              <Link to="/login">Login here</Link>
             </span>
           </p>
         </article>
