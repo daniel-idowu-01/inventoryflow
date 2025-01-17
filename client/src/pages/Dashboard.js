@@ -38,8 +38,8 @@ export const data = {
 };
 
 function Dashboard() {
-  const [saleAmount, setSaleAmount] = useState("");
-  const [purchaseAmount, setPurchaseAmount] = useState("");
+  const [saleAmount, setSaleAmount] = useState(0);
+  const [purchaseAmount, setPurchaseAmount] = useState(0);
   const [stores, setStores] = useState([]);
   const [products, setProducts] = useState([]);
 
@@ -81,7 +81,7 @@ function Dashboard() {
       id: 1,
       title: "Sales",
       amount: "$240.94",
-      info: `$${saleAmount}`,
+      info: `$${saleAmount || "0.00"}`,
       icon: <MdOutlineInventory2 />,
       percent: "67.81%",
       bgColor: "bg-[#344767]",
@@ -91,7 +91,7 @@ function Dashboard() {
       id: 2,
       title: "Purchase",
       amount: "$404.32",
-      info: `$${purchaseAmount}`,
+      info: `$${purchaseAmount  || "0.00"}`,
       icon: <ImStatsBars />,
       percent: "5.1%",
       bgColor: "bg-blue-500",
