@@ -24,10 +24,7 @@ export default function Header() {
   return (
     <>
       <div className="min-h-full border">
-        <Disclosure
-          as="nav"
-          className="bg-gray-800 lg:bg-white relative lg:top-2"
-        >
+        <Disclosure as="nav" className='bg-gray-800 lg:bg-white shadow-md z-10'>
           {({ open }) => (
             <>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
