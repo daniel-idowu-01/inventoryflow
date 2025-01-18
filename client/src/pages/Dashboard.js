@@ -91,7 +91,7 @@ function Dashboard() {
       id: 2,
       title: "Purchase",
       amount: "$404.32",
-      info: `$${purchaseAmount  || "0.00"}`,
+      info: `$${purchaseAmount || "0.00"}`,
       icon: <ImStatsBars />,
       percent: "5.1%",
       bgColor: "bg-blue-500",
@@ -153,14 +153,18 @@ function Dashboard() {
 
     // Fetching all stores data
     const fetchStoresData = () => {
-      fetch(`${process.env.REACT_APP_BACKEND_API}/api/store/get/${authContext.user}`)
+      fetch(
+        `${process.env.REACT_APP_BACKEND_API}/api/store/get/${authContext.user}`
+      )
         .then((response) => response.json())
         .then((datas) => setStores(datas));
     };
 
     // Fetching Data of All Products
     const fetchProductsData = () => {
-      fetch(`${process.env.REACT_APP_BACKEND_API}/api/product/get/${authContext.user}`)
+      fetch(
+        `${process.env.REACT_APP_BACKEND_API}/api/product/get/${authContext.user}`
+      )
         .then((response) => response.json())
         .then((datas) => setProducts(datas))
         .catch((err) => console.log(err));
@@ -183,12 +187,14 @@ function Dashboard() {
 
   return (
     <>
-      <div className="grid grid-cols-1 col-span-12 lg:col-span-10 gap-6 md:grid-cols-3 lg:grid-cols-4 md:place-items-center p-4">
-        {dashboardStats.map((stat) => (
-          <StatsComp key={stat.id} {...stat} />
-        ))}
+      <div className="col-span-12 lg:col-span-10 p-4">
+        <article className="flex justify-between w-full col-span-full gap-3">
+          {dashboardStats.map((stat) => (
+            <StatsComp key={stat.id} {...stat} />
+          ))}
+        </article>
 
-        <div className="flex flex-col md:flex-row gap-3 justify-between col-span-full">
+        <article className="flex flex-col sm:flex-row gap-3 justify-between col-span-full mt-10">
           <div className="bg-white p-8 shadow-md rounded-xl">
             <Chart
               options={chart.options}
@@ -197,10 +203,10 @@ function Dashboard() {
               className="w-full md:w-[600px]"
             />
           </div>
-          <div className="bg-white p-8 shadow-md rounded-xl px-auto">
+          <div className="bg-white p-8 shadow-md rounded-xl px-auto w-full">
             <Doughnut data={data} className="mx-auto" />
           </div>
-        </div>
+        </article>
       </div>
     </>
   );

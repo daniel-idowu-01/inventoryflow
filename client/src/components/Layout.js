@@ -5,8 +5,8 @@ import SideMenu from "./SideMenu";
 
 function Layout() {
   return (
-    <>
-      <div className="md:h-20">
+    <article>
+      <div>
         <Header />
       </div>
       <div className="grid grid-cols-12 bg-gray-100 items-baseline">
@@ -15,7 +15,7 @@ function Layout() {
         </div>
         <Outlet />
       </div>
-    </>
+    </article>
   );
 }
 
